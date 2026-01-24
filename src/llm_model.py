@@ -3,7 +3,7 @@ from rich import print
 from langchain_huggingface import HuggingFaceEndpoint
 from langchain_huggingface import ChatHuggingFace
 import os
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 
 class Llm:
     def __init__(self, output_model = None):
@@ -29,9 +29,24 @@ class EmbeddingModel:
         self.embedding_model = self.initialize_embedding_model()
     
     def initialize_embedding_model(self):
-        embedding_model = HuggingFaceInferenceAPIEmbeddings(
-            api_key=os.getenv("HF_KEY_1"),
-            model_name="sentence-transformers/all-MiniLM-L6-v2",
-            api_url="https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2/pipeline/feature-extraction"
+        import requests
+        import os
+
+        # Your specific model setup
+        API_URL = "https://router.huggingface.co/hf-inference/models/all-mpnet-base-v2"
+        headers = {"Authorization": f"Bearer {os.getenv('HF_KEY_1')}"}
+
+        # Simple payload
+        payload = {"inputs": "Test sentence for embedding."}
+
+        response = requests.post(API_URL, headers=headers, json=payload)
+
+        print(f"Status Code: {response.status_code}")
+        print("--- Raw Response Content ---")
+        print(response.text)  # <--- This will likely show HTML or a "Model Loading" error
+        embedding_model = HuggingFaceEndpointEmbeddings(
+            huggingfacehub_api_token=os.getenv("HF_KEY_1"),
+            model="sentence-transformers/all-mpnet-base-v2",
+            # api_url="https://router.huggingface.co/hf-inference/models/all-mpnet-base-v2/pipeline/feature-extraction"
         )
         return embedding_model
