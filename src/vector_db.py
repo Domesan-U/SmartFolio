@@ -1,31 +1,42 @@
-from langchain_community.vectorstores import Chroma
+from langchain_pinecone import PineconeVectorStore
+import os
+from pinecone import Pinecone
 
 class VectorDb:
-    def __init__(self,persist_directory,collection_name,embedding_model):
-        self.persist_directory = persist_directory
-        self.collection_name = collection_name
+    def __init__(self, persist_directory, collection_name, embedding_model):
+        # NOTE: persist_directory is unused in Pinecone (it lives in the cloud),
+        # but kept here to maintain compatibility with your existing calls.
+        self.persist_directory = persist_directory 
+        
+        # We treat your 'collection_name' as the Pinecone 'index_name'
+        self.index_name = collection_name 
         self.embedding_model = embedding_model
         self.vector_db = None
-        
+    
+    def get_index_stats(self):
+        pc = Pinecone(api_key=os.getenv("PINECONE_KEY"))
+        # pc.get_
+        index = pc.Index(self.index_name)
+        stats = index.describe_index_stats()
+        return stats
     
     def initialize_vector_db_from_documents(self, chunks):
-        db = Chroma.from_documents(
-                embedding=self.embedding_model, 
-                documents=chunks, 
-                persist_directory=self.persist_directory, 
-                collection_name=self.collection_name
+        # This uploads the documents to your Pinecone Cloud Index
+        
+        self.vector_db = PineconeVectorStore.from_documents(
+            documents=chunks, 
+            embedding=self.embedding_model, 
+            index_name=self.index_name,
         )
-        self.vector_db = db
-        return db
+        return self.vector_db
     
     def initialize_vector_db_from_existing_db(self):
-        db = Chroma(
+        # This connects to the existing Pinecone Cloud Index
+        self.vector_db = PineconeVectorStore(
             embedding=self.embedding_model, 
-            persist_directory=self.persist_directory, 
-            collection_name=self.collection_name
+            index_name=self.index_name,
         )
-        self.vector_db = db
-        return db
+        return self.vector_db
     
-    def get_retriever(self,k=3):
+    def get_retriever(self, k=3):
         return self.vector_db.as_retriever(search_kwargs={"k": k})

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Domesan's Smartfolio</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,9 +14,9 @@
                 extend: {
                     colors: {
                         dark: {
-                            bg: '#09090b',      /* Zinc 950 */
-                            surface: '#18181b', /* Zinc 900 */
-                            border: '#27272a'   /* Zinc 800 */
+                            bg: '#09090b',
+                            surface: '#18181b',
+                            border: '#27272a'
                         }
                     }
                 }
@@ -31,9 +31,8 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* Custom Scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -45,7 +44,11 @@
             background: #3f3f46;
         }
 
-        /* Animations */
+        /* Mobile Drawer Transition */
+        .drawer-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -62,7 +65,6 @@
             animation: fadeIn 0.4s ease-out forwards;
         }
 
-        /* Loader Animation */
         .typing-dot {
             animation: typingBounce 1.4s infinite ease-in-out both;
         }
@@ -90,48 +92,73 @@
     </style>
 </head>
 
-<body class="bg-gray-50 text-slate-900 dark:bg-dark-bg dark:text-slate-200 transition-colors duration-300">
+<body
+    class="bg-gray-50 text-slate-900 dark:bg-dark-bg dark:text-slate-200 transition-colors duration-300 overflow-hidden fixed inset-0">
 
-    <div class="flex h-screen overflow-hidden">
+    <div id="mobile-overlay" onclick="toggleMobileMenu()"
+        class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity opacity-0 backdrop-blur-sm"></div>
 
-        <main class="flex-1 flex flex-col bg-white dark:bg-dark-bg relative transition-colors duration-300">
+    <aside id="mobile-sidebar"
+        class="fixed inset-y-0 right-0 w-[80%] max-w-[320px] bg-white dark:bg-dark-bg z-50 transform translate-x-full drawer-transition flex flex-col border-l border-gray-200 dark:border-dark-border shadow-2xl md:hidden">
+
+        <div
+            class="p-5 border-b border-gray-100 dark:border-dark-border flex justify-between items-center bg-gray-50/50 dark:bg-dark-surface/50">
+            <h3 class="font-bold text-gray-800 dark:text-gray-100">History</h3>
+            <button onclick="toggleMobileMenu()" class="p-2 -mr-2 text-gray-500 hover:text-red-500 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-history-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+        </div>
+
+        <div class="p-4 border-t border-gray-100 dark:border-dark-border">
+            <button onclick="location.reload()"
+                class="w-full py-3 text-sm font-bold text-gray-500 hover:text-red-500 bg-gray-50 dark:bg-dark-surface rounded-xl transition border border-dashed border-gray-200 dark:border-dark-border">
+                Refresh Session
+            </button>
+        </div>
+    </aside>
+
+
+    <div class="flex h-full">
+
+        <main class="flex-1 flex flex-col bg-white dark:bg-dark-bg relative transition-colors duration-300 w-full">
 
             <header
-                class="h-16 border-b border-gray-100 dark:border-dark-border flex items-center justify-between px-4 md:px-8 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md z-10 sticky top-0 transition-colors">
+                class="h-16 border-b border-gray-100 dark:border-dark-border flex items-center justify-between px-4 md:px-8 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md z-30 sticky top-0 transition-colors">
 
                 <div class="flex items-center gap-3">
                     <div
-                        class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold italic shadow-lg shadow-orange-500/20">
+                        class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold italic shadow-lg shadow-orange-500/20 flex-shrink-0">
                         D</div>
-                    <h2 class="font-bold text-lg text-gray-800 dark:text-gray-100 hidden sm:block">Domesan's Smartfolio
-                    </h2>
-                    <h2 class="font-bold text-lg text-gray-800 dark:text-gray-100 sm:hidden">Smartfolio</h2>
+                    <h2 class="font-bold text-lg text-gray-800 dark:text-gray-100 truncate">Smartfolio</h2>
                 </div>
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 md:gap-4">
 
-                    <div class="flex items-center gap-3 mr-2 border-r border-gray-200 dark:border-dark-border pr-4">
-                        <a href="https://www.linkedin.com/in/domesan/" target="_blank" title="LinkedIn"
-                            class="text-gray-400 hover:text-orange-500 transition-colors transform hover:scale-110">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <div
+                        class="hidden xs:flex items-center gap-2 mr-1 border-r border-gray-200 dark:border-dark-border pr-3">
+                        <a href="https://www.linkedin.com/in/domesan/" target="_blank"
+                            class="text-gray-400 hover:text-orange-500 p-1"><svg class="w-5 h-5" fill="currentColor"
+                                viewBox="0 0 24 24">
                                 <path
                                     d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                            </svg>
-                        </a>
-                        <a href="https://github.com/Domesan-U" target="_blank" title="GitHub"
-                            class="text-gray-400 hover:text-orange-500 transition-colors transform hover:scale-110">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            </svg></a>
+                        <a href="https://github.com/Domesan-U" target="_blank"
+                            class="text-gray-400 hover:text-orange-500 p-1"><svg class="w-5 h-5" fill="currentColor"
+                                viewBox="0 0 24 24">
                                 <path
                                     d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                            </svg>
-                        </a>
-                        <a href="https://leetcode.com/u/Domesh-13dex_ter-D/" target="_blank" title="LeetCode"
-                            class="text-gray-400 hover:text-orange-500 transition-colors transform hover:scale-110">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            </svg></a>
+                        <a href="https://leetcode.com/u/Domesh-13dex_ter-D/" target="_blank"
+                            class="text-gray-400 hover:text-orange-500 p-1"><svg class="w-5 h-5" fill="currentColor"
+                                viewBox="0 0 24 24">
                                 <path
                                     d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-1.083-.876-2.435-1.258-3.771-1.258-1.04 0-2.074.232-3.04.671zm4.796 5.354c-1.517-.008-2.969.587-4.041 1.658l-2.227 2.222a1.377 1.377 0 0 0 .003 1.955c.54.54 1.414.54 1.952 0l2.227-2.222c.513-.513 1.196-.795 1.921-.795 1.5 0 2.72 1.22 2.72 2.72 0 .736-.291 1.428-.822 1.96l-3.863 3.871a1.377 1.377 0 0 0 .002 1.952c.54.54 1.414.543 1.955.003l3.863-3.871a5.43 5.43 0 0 0 1.589-3.844 5.43 5.43 0 0 0-5.279-5.61z" />
-                            </svg>
-                        </a>
+                            </svg></a>
                     </div>
 
                     <button id="theme-toggle"
@@ -149,48 +176,59 @@
                             </path>
                         </svg>
                     </button>
+
                     <div
-                        class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400 font-bold text-xs cursor-pointer">
-                        You</div>
+                        class="hidden md:flex w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 items-center justify-center text-orange-600 dark:text-orange-400 font-bold text-xs cursor-pointer">
+                        You
+                    </div>
+
+                    <button onclick="toggleMobileMenu()"
+                        class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-dark-surface transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
                 </div>
             </header>
 
             <section id="chat-window"
-                class="flex-1 overflow-y-auto p-4 md:p-8 space-y-8 custom-scrollbar scroll-smooth relative">
+                class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 md:space-y-8 custom-scrollbar scroll-smooth relative">
 
                 <div id="welcome-screen"
-                    class="flex flex-col items-center justify-center min-h-full py-10 animate-fade-in max-w-3xl mx-auto">
+                    class="flex flex-col items-center justify-center min-h-[80%] md:min-h-full py-6 md:py-10 animate-fade-in max-w-3xl mx-auto">
                     <div
-                        class="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl flex items-center justify-center text-white text-4xl font-bold italic mb-8 shadow-2xl shadow-orange-500/20">
+                        class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl flex items-center justify-center text-white text-3xl md:text-4xl font-bold italic mb-6 md:mb-8 shadow-2xl shadow-orange-500/20">
                         D</div>
 
-                    <div class="text-center space-y-4 mb-12">
-                        <h1 class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white tracking-tight">Welcome
+                    <div class="text-center space-y-3 md:space-y-4 mb-8 md:mb-12 px-4">
+                        <h1 class="text-2xl md:text-4xl font-bold text-slate-800 dark:text-white tracking-tight">Welcome
                             to Domesan's Smartfolio</h1>
-                        <p class="text-lg text-slate-500 dark:text-slate-400 font-medium">Why we need a static portfolio
-                            when we are in an AI dominated space?</p>
-                        <p class="text-sm text-slate-400 dark:text-slate-500 max-w-lg mx-auto leading-relaxed">
-                            This is the virtual assistant developed by Domesan. <br>
+                        <p class="text-base md:text-lg text-slate-500 dark:text-slate-400 font-medium">Why we need a
+                            static portfolio when we are in an AI dominated space?</p>
+                        <p
+                            class="text-xs md:text-sm text-slate-400 dark:text-slate-500 max-w-lg mx-auto leading-relaxed">
+                            This is the virtual assistant developed by Domesan. <br class="hidden md:block">
                             You can learn about me through my assistant.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl px-2">
                         <button onclick="handleQuickAsk('What are the projects developed by domesan?')"
                             class="p-4 bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-md transition duration-200 group">
-                            <span class="mr-2">🚀</span> What are the projects developed by domesan?
+                            <span class="mr-2">🚀</span> Projects developed?
                         </button>
                         <button onclick="handleQuickAsk('Who is domesan?')"
                             class="p-4 bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-md transition duration-200 group">
-                            <span class="mr-2">🤔</span> Who is domesan?
+                            <span class="mr-2">🤔</span> Who is Domesan?
                         </button>
                         <button onclick="handleQuickAsk('Where is domesan Currently working?')"
                             class="p-4 bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-md transition duration-200 group">
-                            <span class="mr-2">🏢</span> Where is domesan Currently working?
+                            <span class="mr-2">🏢</span> Current role?
                         </button>
                         <button onclick="handleQuickAsk('How domesan got into infosys?')"
                             class="p-4 bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-md transition duration-200 group">
-                            <span class="mr-2">💼</span> How domesan got into infosys?
+                            <span class="mr-2">💼</span> Infosys journey?
                         </button>
                     </div>
                 </div>
@@ -198,13 +236,13 @@
             </section>
 
             <footer
-                class="p-6 bg-white dark:bg-dark-bg border-t border-gray-100 dark:border-dark-border transition-colors">
+                class="p-4 md:p-6 bg-white dark:bg-dark-bg border-t border-gray-100 dark:border-dark-border transition-colors">
                 <div
-                    class="max-w-4xl mx-auto flex items-center gap-4 bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border p-2 rounded-2xl shadow-sm focus-within:ring-2 focus-within:ring-orange-500/20 transition-all">
-                    <input id="chat-input" type="text" placeholder="Start typing your question..."
-                        class="flex-1 bg-transparent border-none outline-none py-3 text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500">
+                    class="max-w-4xl mx-auto flex items-center gap-2 md:gap-4 bg-gray-50 dark:bg-dark-surface border border-gray-200 dark:border-dark-border p-2 rounded-2xl shadow-sm focus-within:ring-2 focus-within:ring-orange-500/20 transition-all">
+                    <input id="chat-input" type="text" placeholder="Ask anything..."
+                        class="flex-1 bg-transparent border-none outline-none py-2 md:py-3 px-2 text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500">
                     <button id="send-button"
-                        class="bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-xl transition shadow-md hover:shadow-lg transform active:scale-95">
+                        class="bg-orange-500 hover:bg-orange-600 text-white p-2 md:p-3 rounded-xl transition shadow-md hover:shadow-lg transform active:scale-95 flex-shrink-0">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                 d="M5 12h14M12 5l7 7-7 7" />
@@ -218,15 +256,10 @@
             class="w-80 border-l border-gray-200 dark:border-dark-border bg-gray-50/50 dark:bg-dark-bg flex flex-col hidden md:flex transition-colors">
             <div
                 class="p-6 border-b border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg transition-colors">
-                <h3 class="font-bold text-gray-800 dark:text-gray-200 text-sm">What's been asked about Domesan</h3>
+                <h3 class="font-bold text-gray-800 dark:text-gray-200 text-sm">Question History</h3>
             </div>
-
-            <div id="history-sidebar" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
-                <div id="history-loader" class="flex justify-center py-10 opacity-50">
-                    <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500"></div>
-                </div>
+            <div id="desktop-history-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
             </div>
-
             <div
                 class="p-4 border-t border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg transition-colors">
                 <button onclick="location.reload()"
@@ -243,10 +276,33 @@
         const chatInput = document.getElementById('chat-input');
         const sendButton = document.getElementById('send-button');
         const welcomeScreen = document.getElementById('welcome-screen');
-        const historySidebar = document.getElementById('history-sidebar');
         const themeBtn = document.getElementById('theme-toggle');
 
-        // --- 1. DARK MODE LOGIC ---
+        // Mobile Sidebar Elements
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        const mobileHistoryList = document.getElementById('mobile-history-list');
+        const desktopHistoryList = document.getElementById('desktop-history-list');
+
+        // --- MOBILE MENU TOGGLE LOGIC ---
+        function toggleMobileMenu() {
+            const isClosed = mobileSidebar.classList.contains('translate-x-full');
+
+            if (isClosed) {
+                // Open
+                mobileSidebar.classList.remove('translate-x-full');
+                mobileOverlay.classList.remove('hidden');
+                // Small delay to allow 'hidden' removal to register before opacity transition
+                setTimeout(() => mobileOverlay.classList.remove('opacity-0'), 10);
+            } else {
+                // Close
+                mobileSidebar.classList.add('translate-x-full');
+                mobileOverlay.classList.add('opacity-0');
+                setTimeout(() => mobileOverlay.classList.add('hidden'), 300);
+            }
+        }
+
+        // --- DARK MODE LOGIC ---
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
@@ -258,9 +314,30 @@
             localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
         });
 
-        // --- 2. FETCH HISTORY LOGIC (Updated to handle object list) ---
+        // --- FETCH HISTORY LOGIC (Populates BOTH Desktop & Mobile) ---
         async function fetchHistory() {
-            const loader = document.getElementById('history-loader');
+            // Helper to generate HTML
+            const generateList = (questions) => {
+                if (questions.length === 0) {
+                    return `
+                    <div class="flex flex-col items-center justify-center h-32 text-gray-400 dark:text-gray-600">
+                        <p class="text-xs">No questions yet</p>
+                    </div>`;
+                }
+                return questions.map(q => `
+                    <div onclick="handleQuickAsk('${(q.question || "").replace(/'/g, "\\'")}')" 
+                         class="p-4 bg-white dark:bg-dark-surface border border-gray-100 dark:border-dark-border rounded-xl hover:border-orange-400 dark:hover:border-orange-500 shadow-sm cursor-pointer transition group relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-orange-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <h4 class="text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors line-clamp-2">
+                            ${q.question}
+                        </h4>
+                        <span class="text-[10px] text-gray-400 mt-1 block">
+                            ${new Date(q.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                    </div>
+                `).join('');
+            };
+
             try {
                 const res = await fetch('http://127.0.0.1:8000/get_questions_history', {
                     method: 'POST',
@@ -270,53 +347,38 @@
                 const result = await res.json();
                 const questions = result.data || [];
 
-                if (loader) loader.remove();
-
-                if (questions.length === 0) {
-                    historySidebar.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-48 text-gray-400 dark:text-gray-600">
-                        <svg class="w-12 h-12 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
-                        <p class="text-xs">No questions yet</p>
-                    </div>
-                `;
-                } else {
-                    // FIXED: Now accessing 'q.question' instead of just 'q'
-                    historySidebar.innerHTML = questions.map(q => `
-                    <div onclick="handleQuickAsk('${(q.question || "").replace(/'/g, "\\'")}')" 
-                         class="p-4 bg-white dark:bg-dark-surface border border-gray-100 dark:border-dark-border rounded-2xl hover:border-orange-400 dark:hover:border-orange-500 hover:shadow-md cursor-pointer transition group relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-orange-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors line-clamp-2">
-                            ${q.question}
-                        </h4>
-                        <span class="text-[10px] text-gray-400 mt-1 block">
-                            ${new Date(q.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </span>
-                    </div>
-                `).join('');
-                }
+                // Render to both containers
+                const html = generateList(questions);
+                if (desktopHistoryList) desktopHistoryList.innerHTML = html;
+                if (mobileHistoryList) mobileHistoryList.innerHTML = html;
 
             } catch (error) {
-                if (loader) loader.remove();
                 console.error("History fetch failed", error);
-                historySidebar.innerHTML = `<div class="text-center text-xs text-red-400 mt-10">Failed to load history</div>`;
+                const errHtml = `<div class="text-center text-xs text-red-400 mt-4">Failed to load history</div>`;
+                if (desktopHistoryList) desktopHistoryList.innerHTML = errHtml;
+                if (mobileHistoryList) mobileHistoryList.innerHTML = errHtml;
             }
         }
 
-        // --- 3. QUICK ASK HANDLER ---
+        // --- QUICK ASK HANDLER ---
         function handleQuickAsk(question) {
+            // Close mobile menu if open
+            if (!mobileSidebar.classList.contains('translate-x-full')) {
+                toggleMobileMenu();
+            }
             chatInput.value = question;
             sendMessage();
         }
 
-        // --- 4. COMPONENT RENDERERS ---
+        // --- COMPONENT RENDERERS ---
         const uiRenderers = {
             TIMELINE: (data) => `
-            <div class="mt-6 space-y-0 relative border-l-2 border-gray-100 dark:border-dark-border ml-3">
+            <div class="mt-4 md:mt-6 space-y-0 relative border-l-2 border-gray-100 dark:border-dark-border ml-2 md:ml-3">
                 ${data.events.map(ev => `
-                    <div class="ml-6 mb-8 relative">
-                        <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-white dark:bg-dark-surface border-4 border-orange-500"></span>
-                        <div class="bg-gray-50 dark:bg-dark-surface p-4 rounded-xl border border-gray-100 dark:border-dark-border hover:border-orange-200 dark:hover:border-orange-500/30 transition">
-                            <span class="text-xs font-bold text-orange-500 uppercase tracking-wider mb-1 block">${ev.year}</span>
+                    <div class="ml-4 md:ml-6 mb-6 md:mb-8 relative">
+                        <span class="absolute -left-[23px] md:-left-[31px] top-1 w-3 h-3 md:w-4 md:h-4 rounded-full bg-white dark:bg-dark-surface border-4 border-orange-500"></span>
+                        <div class="bg-gray-50 dark:bg-dark-surface p-3 md:p-4 rounded-xl border border-gray-100 dark:border-dark-border">
+                            <span class="text-[10px] md:text-xs font-bold text-orange-500 uppercase tracking-wider mb-1 block">${ev.year}</span>
                             <h5 class="text-sm font-bold text-gray-800 dark:text-gray-100">${ev.title}</h5>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">${ev.desc || ''}</p>
                         </div>
@@ -324,25 +386,25 @@
                 `).join('')}
             </div>`,
             SKILLCARD: (data) => `
-            <div class="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div class="mt-4 md:mt-6 grid grid-cols-2 gap-2 md:gap-3">
                 ${data.skills.map(s => `
-                    <div class="p-3 bg-white dark:bg-dark-surface border border-gray-100 dark:border-dark-border rounded-xl shadow-sm flex items-center gap-3 hover:shadow-md hover:-translate-y-0.5 transition cursor-default">
-                        <div class="w-2 h-2 rounded-full bg-gradient-to-r from-orange-400 to-red-500"></div>
+                    <div class="p-2 md:p-3 bg-white dark:bg-dark-surface border border-gray-100 dark:border-dark-border rounded-xl shadow-sm flex items-center gap-2">
+                        <div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-500"></div>
                         <span class="text-xs font-bold text-gray-700 dark:text-gray-300">${s}</span>
                     </div>
                 `).join('')}
             </div>`,
             PROJECTCARD: (data) => `
-            <div class="mt-6 border border-gray-100 dark:border-dark-border bg-white dark:bg-dark-surface p-5 rounded-2xl shadow-sm group hover:shadow-md transition">
+            <div class="mt-4 md:mt-6 border border-gray-100 dark:border-dark-border bg-white dark:bg-dark-surface p-4 md:p-5 rounded-2xl shadow-sm">
                 <div class="flex justify-between items-start">
                     <div>
                         <div class="flex items-center gap-2 mb-2">
-                            <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded text-[10px] font-bold uppercase">Featured</span>
-                            <h4 class="font-bold text-gray-800 dark:text-gray-100 text-lg">${data.name}</h4>
+                            <span class="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded text-[10px] font-bold uppercase">Featured</span>
+                            <h4 class="font-bold text-gray-800 dark:text-gray-100 text-base md:text-lg">${data.name}</h4>
                         </div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4">${data.description}</p>
+                        <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4">${data.description}</p>
                     </div>
-                    <div class="bg-gray-50 dark:bg-zinc-800 p-2 rounded-lg text-2xl group-hover:scale-110 transition">🚀</div>
+                    <div class="bg-gray-50 dark:bg-zinc-800 p-2 rounded-lg text-xl">🚀</div>
                 </div>
                 ${data.url ? `
                 <a href="${data.url}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-black dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition">
@@ -353,7 +415,7 @@
             NONE: () => ``
         };
 
-        // --- 5. MAIN SEND FUNCTION ---
+        // --- MAIN SEND FUNCTION ---
         async function sendMessage() {
             const text = chatInput.value.trim();
             if (!text) return;
@@ -365,7 +427,7 @@
             const userDiv = document.createElement('div');
             userDiv.className = "flex justify-end mb-6 animate-fade-in";
             userDiv.innerHTML = `
-            <div class="bg-black dark:bg-white text-white dark:text-black px-5 py-3 rounded-2xl rounded-tr-sm max-w-lg shadow-lg text-sm leading-relaxed font-medium">
+            <div class="bg-black dark:bg-white text-white dark:text-black px-4 py-2 md:px-5 md:py-3 rounded-2xl rounded-tr-sm max-w-[85%] md:max-w-lg shadow-lg text-sm leading-relaxed font-medium">
                 ${text}
             </div>
         `;
@@ -378,12 +440,12 @@
             loaderDiv.className = "flex flex-col mb-8 animate-fade-in";
             loaderDiv.id = "api-loader";
             loaderDiv.innerHTML = `
-            <div class="flex gap-4 max-w-2xl">
+            <div class="flex gap-3 md:gap-4 max-w-2xl">
                 <div class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 flex-shrink-0 flex items-center justify-center text-lg">🤖</div>
-                <div class="bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border px-5 py-4 rounded-3xl rounded-tl-sm shadow-sm flex items-center gap-1">
-                    <div class="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full typing-dot"></div>
-                    <div class="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full typing-dot"></div>
-                    <div class="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full typing-dot"></div>
+                <div class="bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border px-4 py-3 rounded-3xl rounded-tl-sm shadow-sm flex items-center gap-1">
+                    <div class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full typing-dot"></div>
+                    <div class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full typing-dot"></div>
+                    <div class="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full typing-dot"></div>
                 </div>
             </div>
         `;
@@ -400,7 +462,6 @@
                 if (!response.ok) throw new Error('Network error');
                 const data = await response.json();
 
-                // Refresh history
                 fetchHistory();
 
                 const loader = document.getElementById("api-loader");
@@ -410,8 +471,6 @@
                 const componentType = botOutput.has_ui_render_component;
                 const componentData = botOutput.ui_component;
 
-                // --- FIXED: ADDED SAFETY CHECK HERE ---
-                // We check if the component exists AND if componentData is not null
                 let componentHtml = '';
                 if (componentType !== "NONE" && uiRenderers[componentType] && componentData) {
                     componentHtml = uiRenderers[componentType](componentData);
@@ -420,9 +479,9 @@
                 const botDiv = document.createElement('div');
                 botDiv.className = "flex flex-col mb-8 animate-fade-in";
                 botDiv.innerHTML = `
-                <div class="flex gap-4 max-w-2xl">
+                <div class="flex gap-3 md:gap-4 max-w-2xl w-full">
                     <div class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 flex-shrink-0 flex items-center justify-center text-lg">🤖</div>
-                    <div class="bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border p-6 rounded-3xl rounded-tl-sm shadow-sm w-full">
+                    <div class="bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border p-4 md:p-6 rounded-3xl rounded-tl-sm shadow-sm w-full min-w-0">
                         <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-200 font-medium mb-2">${botOutput.text_content}</p>
                         ${componentHtml}
                     </div>
@@ -437,16 +496,13 @@
                 const loader = document.getElementById("api-loader");
                 if (loader) loader.remove();
 
+                // Error Msg
                 const errorDiv = document.createElement('div');
-                errorDiv.className = "flex flex-col mb-8 animate-fade-in";
+                errorDiv.className = "flex gap-3 max-w-2xl";
                 errorDiv.innerHTML = `
-                <div class="flex gap-4 max-w-2xl">
-                    <div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex-shrink-0 flex items-center justify-center text-lg">⚠️</div>
-                    <div class="bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 p-4 rounded-3xl rounded-tl-sm text-red-600 dark:text-red-400 text-sm">
-                        Could not reach the AI. Check backend connection.
-                    </div>
-                </div>
-            `;
+                     <div class="w-8 h-8 rounded-full bg-red-100 text-lg flex items-center justify-center">⚠️</div>
+                     <div class="bg-red-50 p-4 rounded-3xl text-red-600 text-sm border border-red-100">Connection Failed</div>
+                `;
                 chatWindow.appendChild(errorDiv);
             }
         }

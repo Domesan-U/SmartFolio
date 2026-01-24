@@ -13,7 +13,7 @@ from src.dto.state_dto import ModelResponse
 from src.utils import send_failure_mail
 
 
-load_dotenv()
+load_dotenv(override=True)
 async def guardrail_agent(state: StateSchema):  
     guardrail_agent = GuardrailAgent(state.user_question)
     guardrail_response = await guardrail_agent.run_agent()

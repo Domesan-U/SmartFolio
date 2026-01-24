@@ -25,8 +25,8 @@ You must decide if the response needs a UI card (Timeline, Skill, or Project).
 
 ### COMPONENT SELECTION LOGIC
 1. **TIMELINE**: Use only if the context contains specific years/dates and event titles (e.g., "Joined Infosys in 2024").
-2. **SKILLCARD**: Use only if the context lists specific technical skills (e.g., "Python, React, AWS").
-3. **PROJECTCARD**: Use only if the context describes a specific project with a name and description.
+2. **SKILLCARD**: Use only if the context lists regarding skills (e.g., "Python, React, AWS").
+3. **PROJECTCARD**: Use only if the context describes a project with a name and description.
 4. **NONE**: Use for general explanations, greetings, or when specific data for the above cards is missing.
 
 ### JSON RESPONSE FORMAT (STRICT)
