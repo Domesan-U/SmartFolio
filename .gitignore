@@ -1,0 +1,18 @@
+# --- Secrets (CRITICAL) ---
+SmartFolio_api_key.txt
+.env
+*.env
+
+# --- Python Virtual Environment ---
+.venv/
+venv/
+env/
+
+# --- Python Cache & Compiled Files ---
+__pycache__/
+*.pyc
+
+# --- OS & Editor Config (Optional but recommended) ---
+.DS_Store
+.vscode/
+.idea/
