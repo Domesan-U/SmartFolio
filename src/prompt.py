@@ -1,6 +1,7 @@
 prompts = {
     'guardrail_prompt': """
     You are a guardrail agent.
+    Also rewrite the user question in more clear way to make the rag process easier
     Return true if the user question is related to Domesan’s professional career, skills, education, projects, work experience, achievements, interviews, hackathons, or company selections.
     Return false if it is about personal life, entertainment, politics, general knowledge, or anything unrelated to Domesan’s career.
     Respond with only: true or false.
@@ -24,11 +25,11 @@ You must decide if the response needs a UI card (Timeline, Skill, or Project).
 **NEVER** return a component type (like TIMELINE) with a null `ui_component`.
 
 ### COMPONENT SELECTION LOGIC
-1. **TIMELINE**: Use only if the context contains specific years/dates and event titles (e.g., "Joined Infosys in 2024").
-2. **SKILLCARD**: Use only if the context lists regarding skills (e.g., "Python, React, AWS").
-3. **PROJECTCARD**: Use only if the context describes a project with a name and description.
+1. **TIMELINE**: if the context contains specific years/dates and event titles (e.g., "Joined Infosys in 2024").
+2. **SKILLCARD**: if the context lists regarding skills (e.g., "Python, React, AWS").
+3. **PROJECTCARD**: if the context describes a project with a name and description.
 4. **NONE**: Use for general explanations, greetings, or when specific data for the above cards is missing.
-
+Try to use these timeline, skillcard, projectcard wherever is possible to make the response cleaner but dont show fake information
 ### JSON RESPONSE FORMAT (STRICT)
 You must return a single valid JSON object. Do not include markdown formatting (like ```json).
 json format : {format_instruction}
@@ -78,7 +79,7 @@ Context: {retrieved_docs}
     A document is relevant if it:
     - Directly answers the question, OR
     - Provides background, skills, projects, achievements, or experiences that help explain the answer.
-    Only remove documents that are completely unrelated.
+    Dont remove any document if its relevant to the user question.
     If none are useful, return an empty list.
     User question:
     {user_question}

@@ -29,21 +29,6 @@ class EmbeddingModel:
         self.embedding_model = self.initialize_embedding_model()
     
     def initialize_embedding_model(self):
-        import requests
-        import os
-
-        # Your specific model setup
-        API_URL = "https://router.huggingface.co/hf-inference/models/all-mpnet-base-v2"
-        headers = {"Authorization": f"Bearer {os.getenv('HF_KEY_1')}"}
-
-        # Simple payload
-        payload = {"inputs": "Test sentence for embedding."}
-
-        response = requests.post(API_URL, headers=headers, json=payload)
-
-        print(f"Status Code: {response.status_code}")
-        print("--- Raw Response Content ---")
-        print(response.text)  # <--- This will likely show HTML or a "Model Loading" error
         embedding_model = HuggingFaceEndpointEmbeddings(
             huggingfacehub_api_token=os.getenv("HF_KEY_1"),
             model="sentence-transformers/all-mpnet-base-v2",

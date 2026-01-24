@@ -28,6 +28,7 @@ class GuardrailAgent:
             model_output = GuardrailModel(**data)
             return {
                 'is_safe_query': model_output.is_relavant_query,
+                'rewritten_query': model_output.rewritten_query,
                 'reason': model_output.reason
             }
         except Exception as e:

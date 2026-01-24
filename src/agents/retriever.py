@@ -13,8 +13,8 @@ from src.vector_db import VectorDb
 
 def split_text(doc):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=300,
-        chunk_overlap=80,
+        chunk_size=500,
+        chunk_overlap=200,
     )
     chunks = text_splitter.split_documents([doc])
     return chunks

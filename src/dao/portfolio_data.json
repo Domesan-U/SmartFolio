@@ -34,9 +34,16 @@
             "cgpa": 9.10
         }
     ],
+    "journey": "Initially worked in various personal projects like cricvoice, chatnote, patient management apps then started freelancing to tk logistics and cleared amazon ml summer school, hackwithinfy national finale and got into self-funded startup called Qween(aka Sucimani) worked there for 10months in backend technology like springboot, node.js then shifted to infosys and now working as Specialist programmer l1",
     "experience": [
         {
-            "company": "Sucimani",
+            "company": "Infosys",
+            "role": "Specialist Programmer L1",
+            "duration": "Aug 2025 - Present",
+            "description": "Finished training on December 2025 on agentic Ai. Currently focusing on Agentic Ai Stream"
+        },
+        {
+            "company": "Qween",
             "role": "Software Development Engineer Intern",
             "duration": "Dec 2024 - Present",
             "description": "Developed and deployed multiple microservices including Payment, Order, Store, User, and Feature services using Spring Boot, Node.js, SQL, and AWS. Improved performance by 30% and migrated 13,000+ products within 5 minutes using Python automation."
@@ -63,17 +70,17 @@
     "projects": [
         {
             "name": "CricVoice",
-            "description": "A live cricket voice alert mobile application that delivers real-time commentary alerts for important match moments. Handled 1000+ live data streams.",
+            "description": "Project on A live cricket voice alert mobile application that delivers real-time commentary alerts for important match moments. Handled 1000+ live data streams.",
             "url": "https://github.com/Domesan-U/CricVoice"
         },
         {
             "name": "Chat Note",
-            "description": "A browser extension that extracts data from ChatGPT responses and converts them into downloadable files. Used by 100+ users on Chrome and Microsoft Add-ons.",
+            "description": "Project on A browser extension that extracts data from ChatGPT responses and converts them into downloadable files. Used by 100+ users on Chrome and Microsoft Add-ons.",
             "url": "https://github.com/Domesan-U/ChatNote"
         },
         {
             "name": "Movie Booking Website",
-            "description": "A scalable movie booking platform built for Mettl StackHack Hackathon, enabling theatres to manage movies and customers. Secured 10th place nationally.",
+            "description": "Project on A scalable movie booking platform built for Mettl StackHack Hackathon, enabling theatres to manage movies and customers. Secured 10th place nationally.",
             "url": "https://github.com/Domesan-U/movieBooking"
         }
     ],

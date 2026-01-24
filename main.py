@@ -19,6 +19,7 @@ async def guardrail_agent(state: StateSchema):
     guardrail_response = await guardrail_agent.run_agent()
     print("Guarrailagent response ",guardrail_response)
     return {
+        'user_question': guardrail_response['rewritten_query'],
         'is_question_porfolio_related': guardrail_response['is_safe_query'],
         'reason': guardrail_response['reason']
     }
@@ -45,11 +46,12 @@ def retriever_agent(state: StateSchema):
     }
 
 async def demolisher_agent(state: StateSchema):
-    demolisher_agent = Demolisher(state.user_question, state.retrieved_docs)
-    demolisher_response = await demolisher_agent.run_agent()
-    print("Demolisher response ",demolisher_response)
+    stored_docs = [doc.page_content for doc in state.retrieved_docs]
+    demolisher_agent = Demolisher(state.user_question, stored_docs)
+    # demolisher_response = await demolisher_agent.run_agent()
+    # print("Demolisher response ",demolisher_response)
     return {
-        'retrieved_docs': demolisher_response['relevant_docs']
+        'retrieved_docs': state.retrieved_docs
     }
 
 def check_if_retrieved_docs_are_empty(state: StateSchema):
