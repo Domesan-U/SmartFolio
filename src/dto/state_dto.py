@@ -18,10 +18,13 @@ class ProjectData(BaseModel):
     description: str
     url: Optional[str] = None
 
+class Projects(BaseModel):
+    projects: List[ProjectData]
+
 class ModelResponse(BaseModel):
     text_content: str
     has_ui_render_component: Literal["TIMELINE", "SKILLCARD", "PROJECTCARD", "NONE"]
-    ui_component: Optional[Union[TimelineData, SkillData, List[ProjectData]]] = None
+    ui_component: Optional[Union[TimelineData, SkillData, Projects]] = None
 
 class StateSchema(BaseModel):
     user_question: str
