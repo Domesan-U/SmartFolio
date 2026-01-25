@@ -2,6 +2,7 @@
     "name": "Domesan U",
     "age": 22,
     "gender": "male",
+    "email": "domesandms@gmail.com",
     "bio": "I am a Software Developer and Full Stack Engineer with strong experience in backend systems, microservices architecture, cloud deployment, and scalable application development. I have worked on production-grade systems, internships, freelance projects, and national-level hackathons.",
     "skills": [
         "Java",
@@ -17,6 +18,7 @@
         "Express.js",
         "React.js",
         "React Native",
+        "Agentic AI",
         "Flutter",
         "AWS",
         "MySQL",
@@ -34,6 +36,7 @@
             "cgpa": 9.10
         }
     ],
+    "resume_url": "https://drive.google.com/file/d/15xA5olA19ZdyZzn9oiQy3dd-8EPBfi-M/view",
     "journey": "Initially worked in various personal projects like cricvoice, chatnote, patient management apps then started freelancing to tk logistics and cleared amazon ml summer school, hackwithinfy national finale and got into self-funded startup called Qween(aka Sucimani) worked there for 10months in backend technology like springboot, node.js then shifted to infosys and now working as Specialist programmer l1",
     "experience": [
         {
@@ -45,7 +48,7 @@
         {
             "company": "Qween",
             "role": "Software Development Engineer Intern",
-            "duration": "Dec 2024 - Present",
+            "duration": "Dec 2024 - Aug 2025",
             "description": "Developed and deployed multiple microservices including Payment, Order, Store, User, and Feature services using Spring Boot, Node.js, SQL, and AWS. Improved performance by 30% and migrated 13,000+ products within 5 minutes using Python automation."
         },
         {
@@ -94,8 +97,9 @@
     ],
     "interests": [
         "Backend Systems",
+        "Agentic Ai Solutioning",
         "Microservices Architecture",
-        "Cloud Computing",
+        "DSA",
         "Database Design",
         "Web Development",
         "System Design"

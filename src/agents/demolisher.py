@@ -8,6 +8,7 @@ from src.utils import convert_ai_response_to_valid_json
 import json
 from typing import List
 from langchain_core.documents import Document
+from langfuse import Langfuse
 
 class Demolisher:
     def __init__(self, user_question: str, retrieved_docs: List[str]):

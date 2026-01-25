@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domesan U | Specialist Programmer</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"Fira Code"', 'monospace'],
+                    },
+                    colors: {
+                        light: {
+                            bg: '#f8fafc',      /* Slate 50 */
+                            surface: '#ffffff', /* White */
+                            border: '#e2e8f0',  /* Slate 200 */
+                            text: '#0f172a'     /* Slate 900 */
+                        },
+                        dark: {
+                            bg: '#050505',      /* Deep Black */
+                            surface: '#0f0f0f', /* Card BG */
+                            border: '#222222',  /* Border */
+                            text: '#e4e4e7'
+                        },
+                        brand: {
+                            orange: '#f97316',
+                            accent: '#1DB954'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #333;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f97316;
+        }
+
+        /* Utilities */
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            border-bottom-width: 1px;
+        }
+
+        .bento-card {
+            border-width: 1px;
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .bento-card:hover {
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .text-gradient-dark {
+            background: linear-gradient(to right, #ffffff, #666666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-light {
+            background: linear-gradient(to right, #0f172a, #64748b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-light-bg text-light-text dark:bg-dark-bg dark:text-dark-text transition-colors duration-300 antialiased selection:bg-brand-orange selection:text-white">
+
+    <nav
+        class="fixed w-full z-50 top-0 glass-nav bg-white/80 border-light-border dark:bg-dark-bg/80 dark:border-dark-border transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div
+                    class="w-10 h-10 bg-brand-orange rounded-xl flex items-center justify-center text-white font-bold text-xl italic shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
+                    D</div>
+                <span class="font-bold text-xl tracking-tight hidden sm:block">Domesan U.</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-500 dark:text-gray-400">
+                <a href="#work" class="hover:text-brand-orange transition-colors">Work</a>
+                <a href="#stack" class="hover:text-brand-orange transition-colors">Stack</a>
+                <a href="#about" class="hover:text-brand-orange transition-colors">Journey</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle"
+                    class="p-2 rounded-full text-slate-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-all">
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+
+                <a href="index.html"
+                    class="flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-black px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm hover:opacity-90 transition-all shadow-lg">
+                    <span>✨</span> <span class="hidden xs:inline">Try AI SmartFolio</span><span
+                        class="inline xs:hidden">AI Chat</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto min-h-[90vh] flex flex-col justify-center">
+        <div class="flex items-center gap-3 mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
+            <div class="relative flex h-3 w-3">
+                <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </div>
+            <span class="text-brand-orange font-mono text-xs tracking-[0.2em] font-bold uppercase">AVAILABLE FOR
+                HIRE</span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl lg:text-9xl font-extrabold tracking-tighter leading-[0.9] mb-8 animate-fade-in-up text-slate-900 dark:text-white"
+            style="animation-delay: 0.2s;">
+            SOFTWARE <br>
+            <span class="text-gradient-light dark:text-gradient-dark">DEVELOPMENT</span> <br>
+            & ENGINEER
+        </h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-end animate-fade-in-up"
+            style="animation-delay: 0.3s;">
+            <div
+                class="md:col-span-7 lg:col-span-6 text-lg md:text-xl text-slate-600 dark:text-gray-400 leading-relaxed">
+                <p>
+                    I design and build high-performance backend systems and autonomous agents.
+                    Specialized in <span class="text-slate-900 dark:text-white font-semibold">Microservices</span>,
+                    <span class="text-slate-900 dark:text-white font-semibold">Agentic AI</span>, and
+                    <span class="text-slate-900 dark:text-white font-semibold">DSA</span>.
+                    Turning complex problems into elegant code.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-4">
+                    <a href="#work"
+                        class="px-8 py-4 bg-brand-orange text-white rounded-xl font-bold hover:bg-orange-600 hover:scale-105 transition-all shadow-lg shadow-orange-500/20">
+                        View Selected Works
+                    </a>
+                    <a href="https://drive.google.com/file/d/15xA5olA19ZdyZzn9oiQy3dd-8EPBfi-M/view?usp=sharing"
+                        target="_blank"
+                        class="px-8 py-4 border border-slate-300 dark:border-gray-700 text-slate-900 dark:text-white rounded-xl font-bold hover:border-brand-orange dark:hover:border-white transition-colors flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Download Resume
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:col-span-5 lg:col-span-6 flex gap-8 md:justify-end">
+                <div class="text-right">
+                    <div class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">500+</div>
+                    <div class="text-xs text-slate-500 dark:text-gray-500 uppercase tracking-wider font-bold mt-2">DSA
+                        Problems Solved</div>
+                </div>
+                <div class="text-right">
+                    <div class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">9.10</div>
+                    <div class="text-xs text-slate-500 dark:text-gray-500 uppercase tracking-wider font-bold mt-2">CGPA
+                        @ Panimalar</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold mb-10 flex items-center gap-3">
+            <span class="w-8 h-[2px] bg-brand-orange"></span> Core Competencies
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div
+                class="bento-card md:col-span-2 p-8 relative overflow-hidden group bg-white dark:bg-dark-surface border-light-border dark:border-dark-border">
+                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <svg class="w-40 h-40 text-slate-900 dark:text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="bg-green-500/10 text-green-600 dark:text-green-500 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-green-500/20">Current
+                            Role</span>
+                    </div>
+                    <span class="text-brand-orange font-mono text-sm">Aug 2025 - Present</span>
+                </div>
+
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Specialist Programmer L1</h3>
+                <p class="text-xl text-slate-500 dark:text-gray-400 mb-6">@ Infosys</p>
+
+                <div
+                    class="bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-gray-800 rounded-xl p-5 backdrop-blur-sm">
+                    <p class="text-slate-700 dark:text-gray-300 leading-relaxed">
+                        Recently completed intensive training (Dec 2025). Currently spearheading the <span
+                            class="text-brand-orange font-bold">Agentic AI Stream</span>, building autonomous software
+                        agents that can reason, plan, and execute complex tasks.
+                    </p>
+                </div>
+            </div>
+
+            <div id="stack"
+                class="bento-card row-span-2 p-8 flex flex-col bg-white dark:bg-dark-surface border-light-border dark:border-dark-border">
+                <div class="mb-6">
+                    <span class="text-slate-400 dark:text-gray-500 font-mono text-xs uppercase tracking-widest">// TECH
+                        ARSENAL</span>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Modern Stack</h3>
+
+                <div class="flex flex-wrap gap-2">
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">Agentic
+                        AI</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">Spring
+                        Boot</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">Java</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">Python</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">Microservices</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">AWS</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">Node.js</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">React.js</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">Docker</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">MongoDB</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">TypeScript</span>
+                    <span
+                        class="px-3 py-1.5 bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 text-xs font-mono rounded border border-slate-200 dark:border-gray-700">CI/CD</span>
+                </div>
+            </div>
+
+            <div
+                class="bento-card md:col-span-2 p-8 bg-white dark:bg-dark-surface border-light-border dark:border-dark-border">
+                <div class="mb-6">
+                    <span class="text-slate-400 dark:text-gray-500 font-mono text-xs uppercase tracking-widest">//
+                        CAREER TIMELINE</span>
+                </div>
+
+                <div class="space-y-8">
+                    <div
+                        class="flex flex-col md:flex-row md:items-start justify-between gap-2 pb-6 border-b border-slate-100 dark:border-gray-800 last:border-0 last:pb-0">
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-900 dark:text-white">SDE Intern</h4>
+                            <p class="text-sm text-brand-orange mt-1">Qween (Sucimani)</p>
+                        </div>
+                        <div class="text-right md:w-1/2">
+                            <span class="text-xs font-mono text-slate-500 dark:text-gray-500 block mb-2">Dec 2024 -
+                                Aug 2025</span>
+                            <p class="text-sm text-slate-600 dark:text-gray-400">
+                                Developed Payment & Order microservices. Optimized DB performance by 30% and migrated
+                                13k+ products via Python automation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex flex-col md:flex-row md:items-start justify-between gap-2 pb-6 border-b border-slate-100 dark:border-gray-800 last:border-0 last:pb-0">
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-900 dark:text-white">ML Trainee</h4>
+                            <p class="text-sm text-brand-orange mt-1">Amazon Summer School</p>
+                        </div>
+                        <div class="text-right md:w-1/2">
+                            <span class="text-xs font-mono text-slate-500 dark:text-gray-500 block mb-2">Jun 2023 - Jul
+                                2023</span>
+                            <p class="text-sm text-slate-600 dark:text-gray-400">
+                                Selected among top 3000 students in India. Gained exposure to real-world ML workflows
+                                and Amazon's tech culture.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-2">
+                        <div>
+                            <h4 class="font-bold text-lg text-slate-900 dark:text-white">Freelance Developer</h4>
+                            <p class="text-sm text-brand-orange mt-1">TK Logistics</p>
+                        </div>
+                        <div class="text-right md:w-1/2">
+                            <span class="text-xs font-mono text-slate-500 dark:text-gray-500 block mb-2">Oct 2023 - Nov
+                                2023</span>
+                            <p class="text-sm text-slate-600 dark:text-gray-400">
+                                Designed complete company website. Improved SEO & performance scores by 50%.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="work" class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+        <div class="flex items-end justify-between mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Selected Works</h2>
+            <a href="https://github.com/Domesan-U" target="_blank"
+                class="hidden md:flex items-center gap-2 text-sm font-mono text-slate-500 hover:text-brand-orange dark:text-gray-400 transition-colors">
+                View All GitHub <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="grid gap-6">
+
+            <a href="https://github.com/Domesan-U/CricVoice" target="_blank"
+                class="group block bg-white dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-3xl p-8 transition-all hover:border-brand-orange dark:hover:border-brand-orange relative overflow-hidden shadow-sm hover:shadow-lg">
+                <div class="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="bg-brand-orange text-white p-3 rounded-full transform rotate-45">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-slate-400 dark:text-gray-600 text-sm">01</span>
+                        <h3
+                            class="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors">
+                            CricVoice</h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <span
+                            class="bg-slate-100 dark:bg-[#1a1a1a] text-slate-600 dark:text-gray-400 text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-[#333]">React
+                            Native</span>
+                        <span
+                            class="bg-slate-100 dark:bg-[#1a1a1a] text-slate-600 dark:text-gray-400 text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-[#333]">Live
+                            API</span>
+                    </div>
+                </div>
+                <p class="text-slate-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+                    A live cricket voice alert mobile application. Delivers real-time commentary alerts for specific
+                    match events. Successfully handled 1000+ live data streams.
+                </p>
+            </a>
+
+            <a href="https://chromewebstore.google.com/detail/chatnote/ohajoicnajddjpikphgfcpbejpgjfgij?hl=en"
+                target="_blank"
+                class="group block bg-white dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-3xl p-8 transition-all hover:border-brand-orange dark:hover:border-brand-orange relative overflow-hidden shadow-sm hover:shadow-lg">
+                <div class="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="bg-brand-orange text-white p-3 rounded-full transform rotate-45">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-slate-400 dark:text-gray-600 text-sm">02</span>
+                        <h3
+                            class="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors">
+                            Chat Note</h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <span
+                            class="bg-slate-100 dark:bg-[#1a1a1a] text-slate-600 dark:text-gray-400 text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-[#333]">Chrome
+                            Extension</span>
+                        <span
+                            class="bg-slate-100 dark:bg-[#1a1a1a] text-slate-600 dark:text-gray-400 text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-[#333]">JavaScript</span>
+                    </div>
+                </div>
+                <p class="text-slate-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+                    Browser extension that extracts data from ChatGPT responses and converts them into downloadable
+                    files. 100+ active users on Chrome & Microsoft Add-ons.
+                </p>
+            </a>
+
+            <a href="https://github.com/Domesan-U/movieBooking" target="_blank"
+                class="group block bg-white dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-3xl p-8 transition-all hover:border-brand-orange dark:hover:border-brand-orange relative overflow-hidden shadow-sm hover:shadow-lg">
+                <div class="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="bg-brand-orange text-white p-3 rounded-full transform rotate-45">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-slate-400 dark:text-gray-600 text-sm">03</span>
+                        <h3
+                            class="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors">
+                            Movie Booking System</h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <span
+                            class="bg-slate-100 dark:bg-[#1a1a1a] text-slate-600 dark:text-gray-400 text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-[#333]">Full
+                            Stack</span>
+                        <span
+                            class="bg-slate-100 dark:bg-[#1a1a1a] text-slate-600 dark:text-gray-400 text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-[#333]">Hackathon
+                            Winner</span>
+                    </div>
+                </div>
+                <p class="text-slate-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+                    Scalable booking platform for theatres to manage movies and customers. Secured 10th place nationally
+                    at Mettl StackHack Hackathon.
+                </p>
+            </a>
+        </div>
+    </section>
+
+    <section id="other-projects"
+        class="py-20 px-4 md:px-8 max-w-7xl mx-auto bg-slate-50 border-t border-slate-200 dark:border-none dark:bg-[#0a0a0a]">
+        <h2 class="text-2xl md:text-3xl font-bold mb-8 text-slate-900 dark:text-gray-200">Other Notable Projects</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+            <a href="https://github.com/Domesan-U/Automatic-Weather-Alerter" target="_blank"
+                class="p-5 bg-white dark:bg-[#121212] border border-slate-200 dark:border-[#222] rounded-xl hover:border-brand-orange hover:bg-slate-50 dark:hover:bg-[#1a1a1a] transition-all group shadow-sm">
+                <div class="flex justify-between items-start mb-3">
+                    <svg class="w-6 h-6 text-slate-400 dark:text-gray-500 group-hover:text-brand-orange" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-slate-400 dark:text-gray-600 group-hover:text-slate-900 dark:group-hover:text-white"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 dark:text-white font-bold mb-1">Weather Alerter</h4>
+                <p class="text-xs text-slate-500 dark:text-gray-500 font-mono">Python • Twilio</p>
+            </a>
+
+            <a href="https://github.com/Domesan-U/Chat-App" target="_blank"
+                class="p-5 bg-white dark:bg-[#121212] border border-slate-200 dark:border-[#222] rounded-xl hover:border-brand-orange hover:bg-slate-50 dark:hover:bg-[#1a1a1a] transition-all group shadow-sm">
+                <div class="flex justify-between items-start mb-3">
+                    <svg class="w-6 h-6 text-slate-400 dark:text-gray-500 group-hover:text-brand-orange" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-slate-400 dark:text-gray-600 group-hover:text-slate-900 dark:group-hover:text-white"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 dark:text-white font-bold mb-1">Chat Application</h4>
+                <p class="text-xs text-slate-500 dark:text-gray-500 font-mono">Flutter • Firebase</p>
+            </a>
+
+            <a href="https://github.com/Domesan-U/Quiz-Application" target="_blank"
+                class="p-5 bg-white dark:bg-[#121212] border border-slate-200 dark:border-[#222] rounded-xl hover:border-brand-orange hover:bg-slate-50 dark:hover:bg-[#1a1a1a] transition-all group shadow-sm">
+                <div class="flex justify-between items-start mb-3">
+                    <svg class="w-6 h-6 text-slate-400 dark:text-gray-500 group-hover:text-brand-orange" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <svg class="w-4 h-4 text-slate-400 dark:text-gray-600 group-hover:text-slate-900 dark:group-hover:text-white"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 dark:text-white font-bold mb-1">Quiz App</h4>
+                <p class="text-xs text-slate-500 dark:text-gray-500 font-mono">Mobile Dev</p>
+            </a>
+
+            <a href="https://github.com/Domesan-U/bitcoinCalculator" target="_blank"
+                class="p-5 bg-white dark:bg-[#121212] border border-slate-200 dark:border-[#222] rounded-xl hover:border-brand-orange hover:bg-slate-50 dark:hover:bg-[#1a1a1a] transition-all group shadow-sm">
+                <div class="flex justify-between items-start mb-3">
+                    <svg class="w-6 h-6 text-slate-400 dark:text-gray-500 group-hover:text-brand-orange" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-slate-400 dark:text-gray-600 group-hover:text-slate-900 dark:group-hover:text-white"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 dark:text-white font-bold mb-1">Bitcoin Calc</h4>
+                <p class="text-xs text-slate-500 dark:text-gray-500 font-mono">Flutter</p>
+            </a>
+
+            <a href="https://github.com/Domesan-U/Turtle-Race" target="_blank"
+                class="p-5 bg-white dark:bg-[#121212] border border-slate-200 dark:border-[#222] rounded-xl hover:border-brand-orange hover:bg-slate-50 dark:hover:bg-[#1a1a1a] transition-all group shadow-sm">
+                <div class="flex justify-between items-start mb-3">
+                    <svg class="w-6 h-6 text-slate-400 dark:text-gray-500 group-hover:text-brand-orange" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-slate-400 dark:text-gray-600 group-hover:text-slate-900 dark:group-hover:text-white"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 dark:text-white font-bold mb-1">Turtle Race</h4>
+                <p class="text-xs text-slate-500 dark:text-gray-500 font-mono">Python • Tkinter</p>
+            </a>
+
+            <a href="https://github.com/Domesan-U/Pong-game" target="_blank"
+                class="p-5 bg-white dark:bg-[#121212] border border-slate-200 dark:border-[#222] rounded-xl hover:border-brand-orange hover:bg-slate-50 dark:hover:bg-[#1a1a1a] transition-all group shadow-sm">
+                <div class="flex justify-between items-start mb-3">
+                    <svg class="w-6 h-6 text-slate-400 dark:text-gray-500 group-hover:text-brand-orange" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-slate-400 dark:text-gray-600 group-hover:text-slate-900 dark:group-hover:text-white"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 dark:text-white font-bold mb-1">Pong Game</h4>
+                <p class="text-xs text-slate-500 dark:text-gray-500 font-mono">Python Game</p>
+            </a>
+
+            <a href="https://github.com/Domesan-U/Snake-Game" target="_blank"
+                class="p-5 bg-white dark:bg-[#121212] border border-slate-200 dark:border-[#222] rounded-xl hover:border-brand-orange hover:bg-slate-50 dark:hover:bg-[#1a1a1a] transition-all group shadow-sm">
+                <div class="flex justify-between items-start mb-3">
+                    <svg class="w-6 h-6 text-slate-400 dark:text-gray-500 group-hover:text-brand-orange" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    <svg class="w-4 h-4 text-slate-400 dark:text-gray-600 group-hover:text-slate-900 dark:group-hover:text-white"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 dark:text-white font-bold mb-1">Snake Game</h4>
+                <p class="text-xs text-slate-500 dark:text-gray-500 font-mono">Python • Classic</p>
+            </a>
+
+            <a href="https://github.com/Domesan-U/xylophone" target="_blank"
+                class="p-5 bg-white dark:bg-[#121212] border border-slate-200 dark:border-[#222] rounded-xl hover:border-brand-orange hover:bg-slate-50 dark:hover:bg-[#1a1a1a] transition-all group shadow-sm">
+                <div class="flex justify-between items-start mb-3">
+                    <svg class="w-6 h-6 text-slate-400 dark:text-gray-500 group-hover:text-brand-orange" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                    </svg>
+                    <svg class="w-4 h-4 text-slate-400 dark:text-gray-600 group-hover:text-slate-900 dark:group-hover:text-white"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h4 class="text-slate-900 dark:text-white font-bold mb-1">Xylophone</h4>
+                <p class="text-xs text-slate-500 dark:text-gray-500 font-mono">Musical App</p>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+            <div>
+                <h3 class="text-sm font-mono text-slate-500 dark:text-gray-500 uppercase tracking-widest mb-6">// HONORS
+                    & AWARDS</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-4">
+                        <span class="text-brand-orange mt-1">✦</span>
+                        <div>
+                            <p class="text-slate-900 dark:text-white font-bold">Top 100 Coders in India</p>
+                            <p class="text-sm text-slate-500 dark:text-gray-500">HackWithInfy 2024</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="text-brand-orange mt-1">✦</span>
+                        <div>
+                            <p class="text-slate-900 dark:text-white font-bold">Top 7 National Finalist</p>
+                            <p class="text-sm text-slate-500 dark:text-gray-500">HackWithInfy 2024 (Pune Finale)</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="text-brand-orange mt-1">✦</span>
+                        <div>
+                            <p class="text-slate-900 dark:text-white font-bold">Top 10 National Rank</p>
+                            <p class="text-sm text-slate-500 dark:text-gray-500">Mettl StackHack Hackathon</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <span class="text-brand-orange mt-1">✦</span>
+                        <div>
+                            <p class="text-slate-900 dark:text-white font-bold">College 2nd Rank Holder</p>
+                            <p class="text-sm text-slate-500 dark:text-gray-500">CSE Department, Panimalar Engineering
+                                College</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div
+                class="bg-white dark:bg-[#0a0a0a] border border-slate-200 dark:border-[#222] p-8 rounded-3xl font-mono text-sm leading-relaxed shadow-sm dark:shadow-none">
+                <div class="flex items-center gap-2 mb-4 text-gray-600">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <p class="text-slate-600 dark:text-gray-400">
+                    <span class="text-purple-600 dark:text-purple-400">const</span> <span
+                        class="text-blue-600 dark:text-blue-400">philosophy</span> = () => {
+                </p>
+                <div class="pl-4 border-l border-slate-200 dark:border-gray-800 my-2">
+                    <p class="text-slate-800 dark:text-gray-300">
+                        return <span class="text-green-600 dark:text-green-400">"Scalability meets Human-Centric
+                            Design"</span>;
+                    </p>
+                </div>
+                <p class="text-slate-600 dark:text-gray-400 mb-4">};</p>
+                <p class="text-slate-500 dark:text-gray-500">
+                    // I believe robust architecture is robust by definition.
+                    // Leveraging Agentic AI to automate the mundane and focus on the innovative.
+                </p>
+                <div
+                    class="mt-6 pt-6 border-t border-slate-200 dark:border-gray-800 flex justify-between text-xs text-slate-500 dark:text-gray-600">
+                    <span>STATUS: OPTIMAL</span>
+                    <span>ENTROPY: 0%</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="mt-20 border-t border-slate-200 dark:border-[#222] bg-white dark:bg-[#050505] transition-colors">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <p class="font-mono text-slate-500 dark:text-gray-500 text-xs mb-4">GOT AN IDEA?</p>
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-8 tracking-tight">
+                        Ready to build <br>
+                        something <span class="text-brand-orange">iconic?</span>
+                    </h2>
+                    <a href="mailto:domesandms@gmail.com"
+                        class="inline-flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-black px-8 py-4 rounded-xl font-bold hover:scale-105 transition-transform">
+                        Start a conversation <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="flex flex-col justify-end md:items-end">
+                    <div class="flex flex-wrap gap-6 mb-8">
+                        <a href="https://www.linkedin.com/in/domesan/" target="_blank"
+                            class="text-slate-500 hover:text-brand-orange dark:text-gray-500 transition-colors font-mono text-sm">LINKEDIN</a>
+                        <a href="https://github.com/Domesan-U" target="_blank"
+                            class="text-slate-500 hover:text-brand-orange dark:text-gray-500 transition-colors font-mono text-sm">GITHUB</a>
+                        <a href="https://leetcode.com/u/Domesh-13dex_ter-D/" target="_blank"
+                            class="text-slate-500 hover:text-brand-orange dark:text-gray-500 transition-colors font-mono text-sm">LEETCODE</a>
+                    </div>
+                    <p class="text-slate-400 dark:text-gray-600 text-xs font-mono">© 2026 DOMESAN U. ALL RIGHTS
+                        RESERVED.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeBtn = document.getElementById('theme-toggle');
+
+        // Dark Mode Logic - Default to LIGHT if no preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+    </script>
+</body>
+
+</html>

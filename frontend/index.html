@@ -114,7 +114,12 @@
         <div id="mobile-history-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
         </div>
 
-        <div class="p-4 border-t border-gray-100 dark:border-dark-border">
+        <div class="p-4 border-t border-gray-100 dark:border-dark-border space-y-3">
+            <a href="static_portfolio.html"
+                class="flex items-center justify-center gap-2 w-full py-3 text-sm font-bold text-white bg-orange-500 hover:bg-orange-600 rounded-xl transition shadow-lg shadow-orange-500/20">
+                <span>⚡</span> Need Static Portfolio?
+            </a>
+
             <button onclick="location.reload()"
                 class="w-full py-3 text-sm font-bold text-gray-500 hover:text-red-500 bg-gray-50 dark:bg-dark-surface rounded-xl transition border border-dashed border-gray-200 dark:border-dark-border">
                 Refresh Session
@@ -177,11 +182,6 @@
                         </svg>
                     </button>
 
-                    <div
-                        class="hidden md:flex w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 items-center justify-center text-orange-600 dark:text-orange-400 font-bold text-xs cursor-pointer">
-                        You
-                    </div>
-
                     <button onclick="toggleMobileMenu()"
                         class="md:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-dark-surface transition">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,9 +214,9 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl px-2">
-                        <button onclick="handleQuickAsk('What are the projects developed by domesan?')"
+                        <button onclick="handleQuickAsk('Is domesan suitable for ML roles?')"
                             class="p-4 bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-md transition duration-200 group">
-                            <span class="mr-2">🚀</span> Projects developed?
+                            <span class="mr-2">🚀</span>Is Domesan suitable for ML roles?
                         </button>
                         <button onclick="handleQuickAsk('Who is domesan?')"
                             class="p-4 bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-md transition duration-200 group">
@@ -224,11 +224,11 @@
                         </button>
                         <button onclick="handleQuickAsk('Where is domesan Currently working?')"
                             class="p-4 bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-md transition duration-200 group">
-                            <span class="mr-2">🏢</span> Current role?
+                            <span class="mr-2">🏢</span> What's his current role?
                         </button>
-                        <button onclick="handleQuickAsk('How domesan got into infosys?')"
+                        <button onclick="handleQuickAsk('What are the skillsets of Domesan?')"
                             class="p-4 bg-white dark:bg-dark-surface border border-gray-200 dark:border-dark-border rounded-xl text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-md transition duration-200 group">
-                            <span class="mr-2">💼</span> Infosys journey?
+                            <span class="mr-2">💼</span> Skillsets
                         </button>
                     </div>
                 </div>
@@ -260,8 +260,14 @@
             </div>
             <div id="desktop-history-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
             </div>
+
             <div
-                class="p-4 border-t border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg transition-colors">
+                class="p-4 border-t border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg transition-colors space-y-3">
+                <a href="static_portfolio.html"
+                    class="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 rounded-lg transition shadow-lg shadow-orange-500/20">
+                    <span>⚡</span> Need Static Portfolio?
+                </a>
+
                 <button onclick="location.reload()"
                     class="w-full py-2.5 text-xs font-bold text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition border border-dashed border-gray-300 dark:border-dark-border hover:border-red-200 flex items-center justify-center gap-2">
                     Refresh Session
@@ -385,6 +391,7 @@
                     </div>
                 `).join('')}
             </div>`,
+
             SKILLCARD: (data) => `
             <div class="mt-4 md:mt-6 grid grid-cols-2 gap-2 md:gap-3">
                 ${data.skills.map(s => `
@@ -394,24 +401,36 @@
                     </div>
                 `).join('')}
             </div>`,
-            PROJECTCARD: (data) => `
-            <div class="mt-4 md:mt-6 border border-gray-100 dark:border-dark-border bg-white dark:bg-dark-surface p-4 md:p-5 rounded-2xl shadow-sm">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded text-[10px] font-bold uppercase">Featured</span>
-                            <h4 class="font-bold text-gray-800 dark:text-gray-100 text-base md:text-lg">${data.name}</h4>
+
+            // UPDATED PROJECTCARD RENDERER TO HANDLE ARRAYS
+            PROJECTCARD: (data) => {
+                // Check if data is an array, if not wrap it
+                const projects = Array.isArray(data) ? data : [data];
+
+                return `
+                <div class="mt-4 md:mt-6 space-y-4">
+                    ${projects.map(project => `
+                    <div class="border border-gray-100 dark:border-dark-border bg-white dark:bg-dark-surface p-4 md:p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded text-[10px] font-bold uppercase">Featured</span>
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-100 text-base md:text-lg">${project.name}</h4>
+                                </div>
+                                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4">${project.description}</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-zinc-800 p-2 rounded-lg text-xl">🚀</div>
                         </div>
-                        <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4">${data.description}</p>
+                        ${project.url ? `
+                        <a href="${project.url}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-black dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition">
+                            View Project 
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>` : ''}
                     </div>
-                    <div class="bg-gray-50 dark:bg-zinc-800 p-2 rounded-lg text-xl">🚀</div>
-                </div>
-                ${data.url ? `
-                <a href="${data.url}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-black dark:bg-white dark:text-black px-4 py-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition">
-                    View Project 
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>` : ''}
-            </div>`,
+                    `).join('')}
+                </div>`;
+            },
+
             NONE: () => ``
         };
 

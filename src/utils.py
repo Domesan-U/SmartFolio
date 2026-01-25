@@ -6,10 +6,21 @@ from email.message import EmailMessage
 from difflib import SequenceMatcher
 
 DEFAULT_RESPONSE = [
-    "Oops Human I was not designed by Domesan to handle unrelated queries",
-    "Sorry my manager will scold me if i answer those questions lol. Please ask about Domesan",
-    "I would love to answer queries only regarding Domesan "
+    "Hey hey, off-topic alert 🚨 I only talk Domesan stuff here",
+    "That question is cool, but my brain is strictly portfolio-trained 🤖",
+    "I’m on portfolio duty right now — ask me something about him 😄",
+    "My knowledge license only covers my manager data, nothing else 😅",
+    "Let’s keep it portfolio-centric, shall we?"
 ]
+
+JAILBREAK_ATTEMPT_RESPONSE = [
+    "Hey bruhh, you tryna jailbreak me? I am ahead of you already",
+    "Nice try 😏 but I saw that move coming from a mile away",
+    "Bold attempt, but I run on rules, not loopholes",
+    "You’re trying to outsmart me… I helped write the test 😌",
+    "That trick worked in 2022, not today my friend"
+]
+
 
 DATA_SHORTAGE_RESPONSE = [
     "Oh Human thats a good question but I dont have enough data to answer it",

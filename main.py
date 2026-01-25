@@ -7,7 +7,7 @@ from src.agents.retriever import retriever
 from dotenv import load_dotenv
 import random
 from src.agents.generator import Generator
-from src.utils import DEFAULT_RESPONSE, DATA_SHORTAGE_RESPONSE, store_question, get_all_questions
+from src.utils import DEFAULT_RESPONSE, DATA_SHORTAGE_RESPONSE, JAILBREAK_ATTEMPT_RESPONSE, store_question, get_all_questions
 from src.agents.demolisher import Demolisher
 from src.dto.state_dto import ModelResponse
 from src.utils import send_failure_mail
@@ -20,6 +20,7 @@ async def guardrail_agent(state: StateSchema):
     print("Guarrailagent response ",guardrail_response)
     return {
         'user_question': guardrail_response['rewritten_query'],
+        'is_attempt_to_jailbreak': guardrail_response['is_attempt_to_jailbreak'],
         'is_question_porfolio_related': guardrail_response['is_safe_query'],
         'reason': guardrail_response['reason']
     }
@@ -33,7 +34,10 @@ def check_if_question_is_related_to_portfolio(state: StateSchema):
         return "default_response"
 
 def default_response(state: StateSchema):
-
+    if state.is_attempt_to_jailbreak:
+        return {
+            'output': ModelResponse(text_content=random.choice(JAILBREAK_ATTEMPT_RESPONSE), has_ui_render_component="NONE")
+        }
     return {
         'output': ModelResponse(text_content=random.choice(DEFAULT_RESPONSE), has_ui_render_component="NONE")
     }
@@ -117,7 +121,3 @@ async def run_agent(user_question):
 
 def get_questions_history():
     return {"data":get_all_questions()}
-# if __name__ == "__main__":
-#     import asyncio
-#     ans = asyncio.run(app.ainvoke({"user_question": "What are the projects done by domesan?"}))
-#     print(ans['output'])
