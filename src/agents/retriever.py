@@ -3,8 +3,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from typing import List, Dict, Any, TypedDict
 import json
 from langchain_core.documents import Document
-from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
-from langchain_huggingface import HuggingFaceEndpointEmbeddings
 import os
 from src.llm_model import EmbeddingModel
 from src.vector_db import VectorDb

@@ -1,10 +1,7 @@
 from langgraph.prebuilt import create_react_agent
 from rich import print
-from langchain_huggingface import HuggingFaceEndpoint
 from langchain_groq import ChatGroq
-from langchain_huggingface import ChatHuggingFace
 import os
-from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_community.embeddings import JinaEmbeddings
 
 class Llm:
