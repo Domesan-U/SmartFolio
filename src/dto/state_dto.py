@@ -23,11 +23,13 @@ class Projects(BaseModel):
 
 class ModelResponse(BaseModel):
     text_content: str
-    has_ui_render_component: Literal["TIMELINE", "SKILLCARD", "PROJECTCARD", "NONE"]
+    has_ui_render_component: Literal["TIMELINE", "SKILLCARD", "PROJECTS", "NONE"]
     ui_component: Optional[Union[TimelineData, SkillData, Projects]] = None
 
 class StateSchema(BaseModel):
     user_question: str
+    rewritten_query: str = None
+    user_previous_questions: List[str] = []
     is_question_porfolio_related: Optional[bool] = None
     is_attempt_to_jailbreak: Optional[bool] = None
     retrieved_docs: list = []

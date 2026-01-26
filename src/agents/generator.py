@@ -25,6 +25,8 @@ class Generator:
         )
         
         response = await self.llm.invoke_llm(prompt)
+        from rich import print
+        print("The prompt for generator is ",prompt)
         response = response.content
         print("The early generator response ",response)
         try:

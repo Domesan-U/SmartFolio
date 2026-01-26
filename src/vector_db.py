@@ -39,4 +39,7 @@ class VectorDb:
         return self.vector_db
     
     def get_retriever(self, k=3):
-        return self.vector_db.as_retriever(search_kwargs={"k": k})
+        return self.vector_db.as_retriever(
+            search_type="similarity_score_threshold",
+            search_kwargs={"score_threshold": 0.75, "k": k}
+            )

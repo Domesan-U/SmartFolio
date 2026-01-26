@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from main import run_agent, get_questions_history
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 
 app = FastAPI()
 
@@ -16,11 +17,17 @@ app.add_middleware(
 
 class QueryRequest(BaseModel):
     user_question: str
+    user_previous_questions: List[str]
 
 @app.post("/ask")
 async def ask_agent(payload: QueryRequest):
-    result = await run_agent(payload.user_question)
-    return result
+    try:
+        result = await run_agent(payload.user_question, payload.user_previous_questions)
+        return result
+    except Exception as e:
+        return {
+            "error": "Oops! we are down come back later" + str(e)
+        }
 
 @app.post("/get_questions_history")
 def get_questions():

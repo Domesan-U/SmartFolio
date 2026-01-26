@@ -29,6 +29,16 @@ DATA_SHORTAGE_RESPONSE = [
 
 HISTORY_FILE = Path("question_history.json")
 
+
+def split_text(doc):
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=500,
+        chunk_overlap=200,
+    )
+    chunks = text_splitter.split_documents([doc])
+    return chunks
+
+
 def convert_ai_response_to_valid_json(ai_response):
     if "```" in ai_response:
         ai_response = ai_response.split("```")[1]
