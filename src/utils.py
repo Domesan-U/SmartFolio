@@ -23,7 +23,6 @@ JAILBREAK_ATTEMPT_RESPONSE = [
 
 
 DATA_SHORTAGE_RESPONSE = [
-    "Oh Human thats a good question but I dont have enough data to answer it",
     "Sorry man, I cannot answer your query"
 ]
 

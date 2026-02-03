@@ -10,8 +10,9 @@ import json
 from langfuse_config import langfuse_client
 
 class Generator:
-    def __init__(self, user_question: str, retrieved_docs: List[Document]):
+    def __init__(self, user_question: str, retrieved_docs: List[Document], past_conversation: List[str]):
         self.user_question = user_question
+        self.past_conversation = past_conversation
         self.llm = Llm()
         self.retrieved_docs = retrieved_docs
     
@@ -20,6 +21,7 @@ class Generator:
             return 
         prompt = langfuse_client.get_prompt("generator_prompt").compile(
             user_question=self.user_question,
+            past_conversation = self.past_conversation,
             retrieved_docs=self.retrieved_docs,
             format_instruction = JsonOutputParser(pydantic_object=ModelResponse).get_format_instructions()
         )

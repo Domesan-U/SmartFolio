@@ -62,7 +62,8 @@ def default_response(state: StateSchema):
     }
     
 async def retriever_agent(state: StateSchema):
-    retriever_agent = RetrieverAgent(state.rewritten_query)
+    print("Retriever getting invoked ")
+    retriever_agent = RetrieverAgent(state.user_question)
     docs = await retriever_agent.run_agent()
     print("Retriever got executed ",docs)
     return {
@@ -81,9 +82,10 @@ async def domain_specific_filter(state: StateSchema):
     }
 
 async def generator_agent(state: StateSchema):
-    generator = Generator(state.rewritten_query, state.retrieved_docs)
     if state.user_previous_questions is None or state.user_previous_questions == []:
         store_question(state.user_question)
+        state.user_previous_questions = []
+    generator = Generator(state.user_question, state.retrieved_docs, state.user_previous_questions)
     generator_response = await generator.run_agent()
     print("Generator response ",generator_response)
     return {
@@ -94,27 +96,31 @@ async def generator_agent(state: StateSchema):
     
 graph=StateGraph(StateSchema)
 
-graph.add_node("guardrail_agent",guardrail_agent)
-graph.add_node("default_response",default_response)
-graph.add_node("query_rewriter",query_rewriter)
+# graph.add_node("guardrail_agent",guardrail_agent)
+# graph.add_node("default_response",default_response)
+# graph.add_node("query_rewriter",query_rewriter)
 graph.add_node("retriever_agent",retriever_agent)
-graph.add_node("domain_specific_filter",domain_specific_filter)
+# graph.add_node("domain_specific_filter",domain_specific_filter)
 graph.add_node("generator_agent",generator_agent)
 
 
-graph.add_edge(START, "guardrail_agent")
-graph.add_edge(START, "query_rewriter")
-graph.add_edge("query_rewriter", "retriever_agent")
-graph.add_edge("retriever_agent", "domain_specific_filter")
+# graph.add_edge(START, "guardrail_agent")
+# graph.add_edge(START, "query_rewriter")
+# graph.add_edge("query_rewriter", "retriever_agent")
+# graph.add_edge("retriever_agent", "domain_specific_filter")
 # graph.add_edge("guardrail_agent","domain_specific_filter")
 
-graph.add_conditional_edges(
-    "domain_specific_filter",
-    router_to_generator
-)
+# graph.add_conditional_edges(
+#     "domain_specific_filter",
+#     router_to_generator
+# )
 
+# graph.add_edge("generator_agent", END)
+# graph.add_edge("default_response", END)
+
+graph.add_edge(START, "retriever_agent")
+graph.add_edge("retriever_agent", "generator_agent")
 graph.add_edge("generator_agent", END)
-graph.add_edge("default_response", END)
 
 
 
