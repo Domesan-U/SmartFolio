@@ -14,7 +14,7 @@ class VectorDb:
         self.vector_db = None
     
     def get_index_stats(self):
-        pc = Pinecone(api_key="pcsk_6Q4q3y_6oF4H8hkQ32jSSWGFh1WfKHHs9esyaNnR2N1FVkBUiPdq4HFDbWgbfjTdQTFeAr")
+        pc = Pinecone(api_key=os.getenv("PINECONE_KEY"))
         # pc.get_
         index = pc.Index(self.index_name)
         stats = index.describe_index_stats()
