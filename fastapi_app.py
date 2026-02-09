@@ -26,13 +26,9 @@ async def ask_agent(payload: QueryRequest):
         return result
     except Exception as e:
         return {
-            "error": "Oops! we are down come back later"
+            "error": "Oops! we are down come back later "+str(e)
         }
 
 @app.post("/get_questions_history")
 def get_questions():
     return get_questions_history()
-
-if __name__=='__main__':
-    import uvicorn
-    uvicorn.run(app, host="localhost", port=8000)

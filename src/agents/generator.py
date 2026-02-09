@@ -28,9 +28,7 @@ class Generator:
         
         response = await self.llm.invoke_llm(prompt)
         from rich import print
-        print("The prompt for generator is ",prompt)
         response = response.content
-        print("The early generator response ",response)
         try:
             final_content = convert_ai_response_to_valid_json(response)
             data = json.loads(final_content.strip())

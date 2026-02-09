@@ -4,6 +4,7 @@ from datetime import datetime
 import smtplib
 from email.message import EmailMessage
 from difflib import SequenceMatcher
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 DEFAULT_RESPONSE = [
     "Hey hey, off-topic alert 🚨 I only talk Domesan stuff here",

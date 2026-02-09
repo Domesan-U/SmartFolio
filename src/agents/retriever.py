@@ -8,6 +8,8 @@ from src.llm_model import EmbeddingModel
 from src.utils import split_text
 from src.vector_db import VectorDb
 
+
+
 class RetrieverAgent:
     def __init__(self, query: str):
         self.query = query
@@ -16,8 +18,7 @@ class RetrieverAgent:
         # 1. Setup Configuration
         index_name = os.getenv("PINECONE_INDEX_NAME")  # Your Pinecone Index Name
         data_path = os.getenv("PORTFOLIO_DATA_PATH")
-
-        print("index name " ,index_name, " data path ",data_path)
+    
         # Initialize your helper classes
         embedding_model = EmbeddingModel().embedding_model
         vector_db_wrapper = VectorDb(None, index_name, embedding_model)

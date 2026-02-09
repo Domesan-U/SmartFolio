@@ -62,10 +62,8 @@ def default_response(state: StateSchema):
     }
     
 async def retriever_agent(state: StateSchema):
-    print("Retriever getting invoked ")
     retriever_agent = RetrieverAgent(state.user_question)
     docs = await retriever_agent.run_agent()
-    print("Retriever got executed ",docs)
     return {
         'retrieved_docs': docs
     }
@@ -87,7 +85,6 @@ async def generator_agent(state: StateSchema):
         state.user_previous_questions = []
     generator = Generator(state.user_question, state.retrieved_docs, state.user_previous_questions)
     generator_response = await generator.run_agent()
-    print("Generator response ",generator_response)
     return {
         'output': generator_response
     }

@@ -17,27 +17,33 @@
         "Node.js",
         "Express.js",
         "React.js",
-        "React Native",
         "Agentic AI",
-        "Flutter",
-        "AWS",
         "MySQL",
         "MongoDB",
-        "Firebase",
         "Git",
-        "CI/CD",
         "Microservices"
+    ],
+    "tools": [
+        "vscode",
+        "IntellIj",
+        "github",
+        "postman",
+        "pinecone",
+        "langfuse",
+        "qdrant",
+        "Android studio",
+        "Docker"
     ],
     "education": [
         {
             "institution": "Panimalar Engineering College, Chennai",
             "degree": "B.Tech Computer Science and Engineering",
             "duration": "2021 - 2025",
-            "cgpa": 9.10
+            "cgpa": 9.11
         }
     ],
     "resume_url": "https://drive.google.com/file/d/15xA5olA19ZdyZzn9oiQy3dd-8EPBfi-M/view",
-    "journey": "Initially worked in various personal projects like cricvoice, chatnote, patient management apps then started freelancing to tk logistics and cleared amazon ml summer school, hackwithinfy national finale and got into self-funded startup called Qween(aka Sucimani) worked there for 10months in backend technology like springboot, node.js then shifted to infosys and now working as Specialist programmer l1",
+    "journey": "Initially worked in various personal projects like cricvoice, chatnote, patient management apps then started freelancing to tk logistics and cleared amazon ml summer school, hackwithinfy national finale and got into self-funded startup called Qween(aka Sucimani) worked there for 10months in backend technology like springboot, node.js then shifted to infosys and trained in agentic ai tech stack and now working as Specialist programmer l1",
     "experience": [
         {
             "company": "Infosys",
@@ -52,47 +58,106 @@
             "description": "Developed and deployed multiple microservices including Payment, Order, Store, User, and Feature services using Spring Boot, Node.js, SQL, and AWS. Improved performance by 30% and migrated 13,000+ products within 5 minutes using Python automation."
         },
         {
+            "company": "Wipro",
+            "role": "Talent Next Trainee",
+            "duration": "May 2024 - Sep 2024",
+            "description": "Mastered Java Full Stack development, Spring Boot, and microservices architecture through intensive Project-Based Learning (PBL)."
+        },
+        {
             "company": "Amazon Summer School",
             "role": "Trainee",
             "duration": "Jun 2023 - Jul 2023",
             "description": "Selected among top 3000 students in India. Gained exposure to real-world ML workflows and interacted with Amazon scientists."
         },
         {
-            "company": "Tech Nerds",
-            "role": "Project Intern",
-            "duration": "Jun 2023 - Jul 2023",
-            "description": "Built scalable backend systems using Java, Spring Boot, and MySQL. Developed frontend using React Native and deployed using GitHub CI/CD and AWS."
-        },
-        {
             "company": "TK Logistics",
             "role": "Freelance Developer",
             "duration": "Oct 2023 - Nov 2023",
             "description": "Designed and deployed a complete company website. Improved SEO, accessibility, and performance scores by up to 50%."
+        },
+        {
+            "company": "Tech Nerds",
+            "role": "SDE Intern",
+            "duration": "Jun 2023 - Jul 2023",
+            "description": "Built scalable backend systems using Java, Spring Boot, and MySQL. Developed frontend using React Native and deployed using GitHub CI/CD and AWS."
         }
     ],
     "projects": [
         {
             "name": "CricVoice",
             "description": "Project on A live cricket voice alert mobile application that delivers real-time commentary alerts for important match moments. Handled 1000+ live data streams.",
+            "techstack": "React Native, js, Rest Api, web scraping",
             "url": "https://github.com/Domesan-U/CricVoice"
         },
         {
             "name": "Chat Note",
             "description": "Project on A browser extension that extracts data from ChatGPT responses and converts them into downloadable files. Used by 100+ users on Chrome and Microsoft Add-ons.",
+            "techstack": "js,content-scripting",
             "url": "https://github.com/Domesan-U/ChatNote"
         },
         {
             "name": "Movie Booking Website",
             "description": "Project on A scalable movie booking platform built for Mettl StackHack Hackathon, enabling theatres to manage movies and customers. Secured 10th place nationally.",
+            "techstack": "springboot, java, mysql, html, css",
             "url": "https://github.com/Domesan-U/movieBooking"
+        }
+    ],
+    "other hobby projects": [
+        {
+            "name": "Weather Alerter",
+            "techstack": "Python, Twilio, OpenWeatherMap API",
+            "description": "A python script that sends weather alerts to your whatsapp number based on the weather conditions in your location.",
+            "url": "https://github.com/Domesan-U/Automatic-Weather-Alerter"
+        },
+        {
+            "name": "Chat Application",
+            "techstack": "Flutter, Firebase",
+            "description": "A real-time cross-platform messaging application featuring user authentication and instant data synchronization via Firebase.",
+            "url": "https://github.com/Domesan-U/Chat-App"
+        },
+        {
+            "name": "Quiz App",
+            "techstack": "Dart, Flutter",
+            "description": "A mobile application designed to test user knowledge through interactive quizzes with a clean UI and score tracking.",
+            "url": "https://github.com/Domesan-U/Quiz-Application"
+        },
+        {
+            "name": "Bitcoin Calc",
+            "techstack": "Flutter, Crypto APIs",
+            "description": "A cryptocurrency conversion tool that fetches real-time Bitcoin prices to provide accurate valuation in multiple fiat currencies.",
+            "url": "https://github.com/Domesan-U/bitcoinCalculator"
+        },
+        {
+            "name": "Turtle Race",
+            "techstack": "Python, Tkinter",
+            "description": "A graphical racing game built with Python's Turtle module, allowing users to bet on different colored turtles in an automated race.",
+            "url": "https://github.com/Domesan-U/Turtle-Race"
+        },
+        {
+            "name": "Pong Game",
+            "techstack": "Python, Turtle Graphics",
+            "description": "A classic recreation of the arcade Pong game featuring paddle physics, scorekeeping, and a two-player competitive mode.",
+            "url": "https://github.com/Domesan-U/Pong-game"
+        },
+        {
+            "name": "Snake Game",
+            "techstack": "Python",
+            "description": "A retro-style Snake game implementation focusing on collision detection logic and high-score persistence.",
+            "url": "https://github.com/Domesan-U/Snake-Game"
+        },
+        {
+            "name": "Xylophone",
+            "techstack": "Flutter, AudioPlayers",
+            "description": "A musical application that simulates a xylophone, playing different clean audio notes based on user interaction with the UI.",
+            "url": "https://github.com/Domesan-U/xylophone"
         }
     ],
     "achievements": [
         "Top 100 coders in India – HackWithInfy 2024 (Infosys)",
         "Top 7 finalist – HackWithInfy 2024 National Finals",
         "10th place – Mettl StackHack Hackathon (All India)",
-        "Zoho Cliqtrix Semi-Finalist 2024 and 2025",
-        "College 2nd Rank holder – CSE Department (2022)",
+        "Zoho Cliqtrix Semi-Finalist In 2024 and 2025",
+        "College 2nd Rank holder(In third semester) – CSE Department (2022) ",
         "Solved 500+ problems on LeetCode, GeeksforGeeks, and Coding Ninjas"
     ],
     "interests": [
