@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from main import run_agent, get_questions_history
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
+from src.utils import send_mail
 
 app = FastAPI()
 
@@ -25,8 +26,12 @@ async def ask_agent(payload: QueryRequest):
         result = await run_agent(payload.user_question, payload.user_previous_questions)
         return result
     except Exception as e:
+        send_mail(
+            message="Question: " + payload.user_question + "\n\nError: " + str(e),
+            subject="SmartFolio Error has occurred"
+        )
         return {
-            "error": "Oops! Something went wrong. Try again or come back later "
+            "error": "Oops! Something went wrong. Try again or come back later"
         }
 
 @app.post("/get_questions_history")

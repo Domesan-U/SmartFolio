@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from datetime import datetime
 import smtplib
@@ -55,39 +56,39 @@ def is_similar(new_q, existing_q, threshold=0.85):
 
 def store_question(question: str):
     # 1. Load existing data
-    if not HISTORY_FILE.exists():
-        data = {"questions": []}
-    else:
-        try:
-            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
-        except json.JSONDecodeError:
-            data = {"questions": []}
+    # if not HISTORY_FILE.exists():
+    #     data = {"questions": []}
+    # else:
+    #     try:
+    #         with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+    #             data = json.load(f)
+    #     except json.JSONDecodeError:
+    #         data = {"questions": []}
 
-    # 2. Smart Check: Iterate through existing questions
-    # We check the new question against EVERY existing question
-    for entry in data["questions"]:
-        existing_q = entry["question"]
+    # # 2. Smart Check: Iterate through existing questions
+    # # We check the new question against EVERY existing question
+    # for entry in data["questions"]:
+    #     existing_q = entry["question"]
         
-        # Exact match (fastest check)
-        if existing_q == question:
-            print(f"Skipping: Exact duplicate found.")
-            return
+    #     # Exact match (fastest check)
+    #     if existing_q == question:
+    #         print(f"Skipping: Exact duplicate found.")
+    #         return
 
-        # Similarity check (smart check)
-        if is_similar(question, existing_q):
-            print(f"Skipping: Similar question found: '{existing_q}'")
-            return
+    #     # Similarity check (smart check)
+    #     if is_similar(question, existing_q):
+    #         print(f"Skipping: Similar question found: '{existing_q}'")
+    #         return
 
-    # 3. Append if no duplicates found
-    data["questions"].append({
-        "question": question,
-        "timestamp": datetime.utcnow().isoformat()
-    })
+    # # 3. Append if no duplicates found
+    # data["questions"].append({
+    #     "question": question,
+    #     "timestamp": datetime.utcnow().isoformat()
+    # })
 
-    # 4. Write back
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+    # # 4. Write back
+    # with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+    #     json.dump(data, f, indent=2)
     
     print("Question saved.")
 
@@ -121,6 +122,35 @@ def send_mail(message: str, subject: str):
         server.login(SENDER_EMAIL, PASSWORD)
         server.send_message(msg)
 
+def check_question_existence(question: str):
+    if not HISTORY_FILE.exists():
+        return False
+    with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    for entry in data["questions"]:
+        if entry["question"].lower().strip() == question.lower().strip():
+            return entry
+    return {}    
+
+def write_answer_to_existing_question(question: str, answer: str):
+    if not HISTORY_FILE.exists():
+        data = {"questions": []}
+    else:
+        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+    for entry in data["questions"]:
+        if entry["question"].lower().strip() == question.lower().strip():
+            entry["answer"] = answer.model_dump()
+
+            temp_file = HISTORY_FILE.with_suffix(".tmp")
+
+            with open(temp_file, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2)
+
+            os.replace(temp_file, HISTORY_FILE)  # atomic replace
+            return
+    
 from langchain_core.tools import tool
 
 @tool

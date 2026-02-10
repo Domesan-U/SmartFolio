@@ -1,12 +1,86 @@
 {
   "questions": [
     {
-      "question": "List all the projects developed by Domesan in his professional career",
-      "timestamp": "2026-01-25T11:02:25.672767"
+      "question": "Who is domesan?",
+      "timestamp": "2026-02-03T17:42:08.789897",
+      "answer": {
+        "text_content": "Domesan is a 22-year-old Software Developer and Full Stack Engineer with a knack for building scalable systems and production-grade apps. He\u2019s worked on everything from hackathons (where he cracked the national top 10 at Mettl StackHack) to freelance gigs and full-stack projects. Think Java, Python, Spring Boot, and Firebase, but make it cool. His projects? They\u2019re the real deal \u2014 like cross-platform chat apps and Bitcoin converters. He\u2019s basically the human version of a CI/CD pipeline.",
+        "has_ui_render_component": "PROJECTS",
+        "ui_component": {
+          "projects": [
+            {
+              "name": "Chat Application",
+              "description": "A real-time cross-platform messaging app with Firebase-powered auth and data sync.",
+              "url": "https://github.com/Domesan-U/Chat-App"
+            },
+            {
+              "name": "Movie Booking Platform",
+              "description": "Scalable hackathon project for theater ticket management (national top-10 finish).",
+              "url": "https://github.com/Domesan-U/movieBooking"
+            },
+            {
+              "name": "Bitcoin Calc",
+              "description": "Crypto converter fetching live Bitcoin prices for multi-currency valuations.",
+              "url": "https://github.com/Domesan-U/bitcoinCalculator"
+            },
+            {
+              "name": "Weather Alerter",
+              "description": "Python script that texts you WhatsApp alerts based on local weather conditions.",
+              "url": "https://github.com/Domesan-U/Automatic-Weather-Alerter"
+            }
+          ]
+        }
+      }
     },
     {
-      "question": "Who is domesan?",
-      "timestamp": "2026-02-03T17:42:08.789897"
+      "question": "Is he suitable for Agentic Ai roles?",
+      "timestamp": "2026-02-03T17:42:08.789897",
+      "answer": {
+        "text_content": "Domesan\u2019s got the Agentic AI vibe locked. He just finished training in it, is currently focused on that stream, and has hands-on experience with the tech stack. Plus, his backend skills align perfectly for building those smart, autonomous systems. Future-ready, no cap. \ud83d\ude80",
+        "has_ui_render_component": "SKILLCARD",
+        "ui_component": {
+          "skills": [
+            "Agentic AI",
+            "Spring Boot",
+            "Node.js",
+            "Microservices",
+            "Python",
+            "AWS"
+          ]
+        }
+      }
+    },
+    {
+      "question": "What He is doing currently?",
+      "timestamp": "2026-02-03T17:42:08.789897",
+      "answer": {
+        "text_content": "Domesan\u2019s currently killing it as a Specialist Programmer L1 at Infosys, deep in the Agentic AI tech stack. He\u2019s focused on the Agentic AI Stream until December 2025\u2014just chillin\u2019 and nailing it. \ud83d\ude80",
+        "has_ui_render_component": "TIMELINE",
+        "ui_component": {
+          "events": [
+            {
+              "year": "Aug 2025 - Present",
+              "title": "Specialist Programmer L1, Infosys",
+              "desc": "Training and working in agentic AI tech stack"
+            },
+            {
+              "year": "Dec 2024 - Aug 2025",
+              "title": "Software Development Engineer Intern, Qween",
+              "desc": "Developed microservices with Spring Boot, Node.js, and AWS"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "question": "What company he previously worked for?",
+      "timestamp": "2026-02-03T17:42:08.789897",
+      "answer": ""
+    },
+    {
+      "question": "What's his current role?",
+      "timestamp": "2026-02-03T17:42:08.789897",
+      "answer": ""
     }
   ]
 }
