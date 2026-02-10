@@ -26,7 +26,7 @@ async def ask_agent(payload: QueryRequest):
         return result
     except Exception as e:
         return {
-            "error": "Oops! we are down come back later "+str(e)
+            "error": "Oops! Something went wrong. Try again or come back later "
         }
 
 @app.post("/get_questions_history")

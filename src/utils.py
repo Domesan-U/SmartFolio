@@ -101,25 +101,32 @@ def get_all_questions():
     return data.get("questions", [])
 
 
-def send_failure_mail(error_message: str):
+def send_mail(message: str, subject: str):
     import os
     SENDER_EMAIL = os.getenv('SENDER_EMAIL')
     RECEIVER_EMAIL = os.getenv('RECEIVER_EMAIL')
     PASSWORD = os.getenv('PASSWORD')
     
     msg = EmailMessage()
-    msg["Subject"] = "SmartFolio 🚨 Model Failure Alert"
+    msg["Subject"] = subject
     msg["From"] = SENDER_EMAIL
     msg["To"] = RECEIVER_EMAIL
 
     msg.set_content(f"""
-Model failure detected.
-
-Error details:
-{error_message}
+{message}
 """)
 
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
         server.login(SENDER_EMAIL, PASSWORD)
         server.send_message(msg)
+
+from langchain_core.tools import tool
+
+@tool
+def send_mail_tool(message: str, subject: str):
+    """
+    Sends an email to the receiver with the given message and subject.
+    """
+    send_mail(message, subject)
+    return "Email sent successfully"

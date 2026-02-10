@@ -12,7 +12,6 @@ from src.agents.generator import Generator
 from src.utils import DEFAULT_RESPONSE, DATA_SHORTAGE_RESPONSE, JAILBREAK_ATTEMPT_RESPONSE, store_question, get_all_questions
 from src.dto.state_dto import ModelResponse
 from src.agents.domain_filter import DomainSpecificFilter
-from src.utils import send_failure_mail
 
 
 load_dotenv(override=True)

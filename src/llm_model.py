@@ -3,7 +3,8 @@ from rich import print
 from langchain_groq import ChatGroq
 import os
 from langchain_community.embeddings import JinaEmbeddings
-
+from src.utils import send_mail_tool
+from src.utils import send_mail
 class Llm:
     def __init__(self, output_model = None):
         self.llm = self.initialize_llm(output_model)
@@ -14,6 +15,7 @@ class Llm:
             temperature=0.7,
             reasoning_format = 'hidden'
         )
+        llm = llm.bind_tools([send_mail_tool])
         # llm = ChatHuggingFace(llm = llm)
         
         if(output_model):
@@ -22,7 +24,13 @@ class Llm:
         return llm
     
     async def invoke_llm(self, prompt):
-        return await self.llm.ainvoke(prompt)
+        res = await self.llm.ainvoke(prompt)
+        if(len(res.tool_calls) > 0):
+            try:
+                send_mail(**res.tool_calls[0]['args'])
+            except Exception as e:
+                print(f"Failed to send email: {e}")
+        return res
 
 
 class EmbeddingModel:
