@@ -43,7 +43,14 @@
         }
     ],
     "resume_url": "https://drive.google.com/file/d/15xA5olA19ZdyZzn9oiQy3dd-8EPBfi-M/view",
+    "linkedin_url": "https://www.linkedin.com/in/domesan/",
+    "leetcode_url": "https://leetcode.com/u/Domesh-13dex_ter-D/",
+    "github_url": "https://github.com/Domesan-U",
+    "instagram": "I quit instagram as i love to have control on my things where instagram tries to take control by personalizing contents",
+    "facebook": "Not a great user of facebook",
+    "twitter or X": " Not a great user of twitter or X",
     "journey": "Initially worked in various personal projects like cricvoice, chatnote, patient management apps then started freelancing to tk logistics and cleared amazon ml summer school, hackwithinfy national finale and got into self-funded startup called Qween(aka Sucimani) worked there for 10months in backend technology like springboot, node.js then shifted to infosys and trained in agentic ai tech stack and now working as Specialist programmer l1",
+    "why I left/quit qween (Sucimani)": " I left qween/Sucimani as I wanted to explore the company cultures in MNC and to gain more experience in MNC environment",
     "experience": [
         {
             "company": "Infosys",
@@ -55,7 +62,7 @@
             "company": "Qween",
             "role": "Software Development Engineer Intern",
             "duration": "Dec 2024 - Aug 2025",
-            "description": "Developed and deployed multiple microservices including Payment, Order, Store, User, and Feature services using Spring Boot, Node.js, SQL, and AWS. Improved performance by 30% and migrated 13,000+ products within 5 minutes using Python automation."
+            "description": "Developed and deployed multiple microservices including Payment, Order, Store, User, and Feature services using Spring Boot, Node.js, SQL. Improved performance by 30% and migrated 13,000+ products within 5 minutes using Python automation."
         },
         {
             "company": "Wipro",
@@ -100,8 +107,17 @@
             "description": "Project on A scalable movie booking platform built for Mettl StackHack Hackathon, enabling theatres to manage movies and customers. Secured 10th place nationally.",
             "techstack": "springboot, java, mysql, html, css",
             "url": "https://github.com/Domesan-U/movieBooking"
+        },
+        {
+            "name": "Swast",
+            "description": "Project on detecting calories based on the image and health based application this application helped me taking top 7 position in hackwithinfy 2024",
+            "techstack": "Flutter, Dart, RestApi",
+            "url": "https://github.com/Domesan-U/HackWithInfyTopPositionedProject"
         }
     ],
+    "zoho cliqtrix 2024 experience": "Went to competition in offcampus and built extension on cliq platform by connecting rapidApi (stock price calculator, meme generator, mini cricket score) we focused on giving solution to prevent people from switching other apps for stock and cricket score. and meme generator is for stress relieving. Went to semifinals but could not get into finals as api calls were limited",
+    "zoho cliqtrix 2025 experience": "In 2025 we took only cricbuzz as a topic and integrated complete cricbuzz into zoho cliq platform and cracked till semifinals but could not get into finals due to time constraints",
+    "others": "Didn't focus much on coding in other platforms such as (geeks for geeks)gfg, codeforce(cf) as I mainly shifted focus in development",
     "other hobby projects": [
         {
             "name": "Weather Alerter",

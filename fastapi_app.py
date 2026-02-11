@@ -20,6 +20,10 @@ class QueryRequest(BaseModel):
     user_question: str
     user_previous_questions: List[str]
 
+class MailRequest(BaseModel):
+    subject: str
+    message: str
+
 @app.post("/ask")
 async def ask_agent(payload: QueryRequest):
     try:
@@ -37,3 +41,11 @@ async def ask_agent(payload: QueryRequest):
 @app.post("/get_questions_history")
 def get_questions():
     return get_questions_history()
+
+@app.post("/mail")
+def mail_controller(payload: MailRequest):
+    send_mail(
+        message=payload.message,
+        subject=payload.subject
+    )
+    return {"success": True}

@@ -57,7 +57,7 @@ class Generator:
 
             response = await self.llm.invoke_llm(prompt)
             response = response.content
-
+            span.update(output=response)
             try:
                 final_content = convert_ai_response_to_valid_json(response)
                 data = json.loads(final_content.strip())
@@ -67,15 +67,12 @@ class Generator:
                     self.user_question,
                     model_output
                 )
-
-                # trace generated answer
-                span.update(output=model_output.model_dump())
-
+ 
                 return model_output
 
             except Exception as e:
                 error_output = ModelResponse(
-                    text_content="Failed to parse JSON output",
+                    text_content="Something went wrong. Try again or come back later",
                     has_ui_render_component="NONE"
                 )
 
