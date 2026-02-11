@@ -117,10 +117,18 @@ def send_mail(message: str, subject: str):
 {message}
 """)
 
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
-        server.starttls()
-        server.login(SENDER_EMAIL, PASSWORD)
-        server.send_message(msg)
+    # with smtplib.SMTP("smtp.gmail.com", 587) as server:
+    #     server.starttls()
+    #     server.login(SENDER_EMAIL, PASSWORD)
+    #     server.send_message(msg)
+
+    import resend
+    r = resend.Emails.send({
+        "from": SENDER_EMAIL,
+        "to": RECEIVER_EMAIL,
+        "subject": subject,
+        "html": message
+    })
 
 def check_question_existence(question: str):
     if not HISTORY_FILE.exists():
