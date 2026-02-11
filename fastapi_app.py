@@ -44,8 +44,11 @@ def get_questions():
 
 @app.post("/mail")
 def mail_controller(payload: MailRequest):
-    send_mail(
-        message=payload.message,
-        subject=payload.subject
-    )
-    return {"success": True}
+    try:
+        send_mail(
+            message=payload.message,
+            subject=payload.subject
+        )
+        return {"success": True}
+    except Exception as e:
+        return {"success": False}
