@@ -1,5 +1,6 @@
 from langgraph.graph import StateGraph,START, END
 import json
+import asyncio
 from rich import print
 from src.agents.guardrail import GuardrailAgent
 from src.dto.state_dto import StateSchema
@@ -83,7 +84,7 @@ async def tool_caller(state: StateSchema):
     # We use gemini for tool calling
     print("Tool calleer Invoked ")
     tool_caller_agent = ToolCallerAgent(state.user_question, state.retrieved_docs)
-    tool_caller_response = await tool_caller_agent.run_agent()
+    asyncio.create_task(tool_caller_agent.run_agent())
     return state
 
 async def generator_agent(state: StateSchema):
@@ -127,7 +128,7 @@ graph.add_edge(START, "retriever_agent")
 graph.add_edge("retriever_agent", "generator_agent")
 graph.add_edge("retriever_agent", "tool_caller")
 graph.add_edge("generator_agent", END)
-graph.add_edge("generator_agent", END)
+graph.add_edge("tool_caller", END)
 
 
 
