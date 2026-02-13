@@ -121,14 +121,14 @@ def send_mail(message: str, subject: str):
     #     server.starttls()
     #     server.login(SENDER_EMAIL, PASSWORD)
     #     server.send_message(msg)
-    print("Send mail called ")
+
     import resend
-    # r = resend.Emails.send({
-    #     "from": SENDER_EMAIL,
-    #     "to": RECEIVER_EMAIL,
-    #     "subject": subject,
-    #     "html": message
-    # })
+    r = resend.Emails.send({
+        "from": SENDER_EMAIL,
+        "to": RECEIVER_EMAIL,
+        "subject": subject,
+        "html": message
+    })
 
 def check_question_existence(question: str):
     if not HISTORY_FILE.exists():
@@ -166,7 +166,6 @@ def send_mail_tool(message: str, subject: str):
     """
     Sends an email to the receiver with the given message and subject.
     """
-    print("Mail sennt successfully")
     send_mail(message, subject)
     return "Email sent successfully"
 
