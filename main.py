@@ -11,6 +11,7 @@ from rich import print
 from src.agents.generator import Generator
 from src.utils import DEFAULT_RESPONSE, DATA_SHORTAGE_RESPONSE, JAILBREAK_ATTEMPT_RESPONSE, store_question, get_all_questions
 from src.dto.state_dto import ModelResponse
+from src.agents.tool_caller import ToolCallerAgent
 from src.agents.domain_filter import DomainSpecificFilter
 
 
@@ -78,6 +79,13 @@ async def domain_specific_filter(state: StateSchema):
         'is_question_porfolio_related': domain_specfic_filter_response['is_question_porfolio_related']
     }
 
+async def tool_caller(state: StateSchema):
+    # We use gemini for tool calling
+    print("Tool calleer Invoked ")
+    tool_caller_agent = ToolCallerAgent(state.user_question, state.retrieved_docs)
+    tool_caller_response = await tool_caller_agent.run_agent()
+    return state
+
 async def generator_agent(state: StateSchema):
     if state.user_previous_questions is None or state.user_previous_questions == []:
         store_question(state.user_question)
@@ -98,6 +106,7 @@ graph=StateGraph(StateSchema)
 graph.add_node("retriever_agent",retriever_agent)
 # graph.add_node("domain_specific_filter",domain_specific_filter)
 graph.add_node("generator_agent",generator_agent)
+graph.add_node("tool_caller",tool_caller)
 
 
 # graph.add_edge(START, "guardrail_agent")
@@ -116,6 +125,8 @@ graph.add_node("generator_agent",generator_agent)
 
 graph.add_edge(START, "retriever_agent")
 graph.add_edge("retriever_agent", "generator_agent")
+graph.add_edge("retriever_agent", "tool_caller")
+graph.add_edge("generator_agent", END)
 graph.add_edge("generator_agent", END)
 
 

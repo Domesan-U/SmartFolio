@@ -55,9 +55,11 @@ class Generator:
                 ).get_format_instructions()
             )
 
-            response = await self.llm.invoke_llm(prompt)
-            response = response.content
+            raw_response = await self.llm.invoke_llm(prompt)
+            response = raw_response.content
             span.update(output=response)
+            if(raw_response.content == "" and len(raw_response.tool_calls) == 0):
+                response.content = "I dont have any information for your question right now. But no worries I will let Domesan know about this issue he will fix it soon :)"
             try:
                 final_content = convert_ai_response_to_valid_json(response)
                 data = json.loads(final_content.strip())

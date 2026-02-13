@@ -6,16 +6,20 @@ from langchain_community.embeddings import JinaEmbeddings
 from src.utils import send_mail_tool
 from src.utils import send_mail
 class Llm:
-    def __init__(self, output_model = None):
+    def __init__(self, output_model = None, bind_tool = False, api_key=None):
+        self.bind_tool = bind_tool
+        self.api_key = api_key
         self.llm = self.initialize_llm(output_model)
         
     def initialize_llm(self, output_model = None):
         llm = ChatGroq(
             model_name="qwen/qwen3-32b",
+            groq_api_key = self.api_key if self.api_key else os.getenv("GROQ_API_KEY"),
             temperature=0.7,
             reasoning_format = 'hidden'
         )
-        llm = llm.bind_tools([send_mail_tool])
+        if(self.bind_tool):
+            llm = llm.bind_tools([send_mail_tool])
         # llm = ChatHuggingFace(llm = llm)
         
         if(output_model):
